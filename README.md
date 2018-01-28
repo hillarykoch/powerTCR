@@ -10,8 +10,7 @@ source("https://bioconductor.org/biocLite.R")
 biocLite("powerTCR")
 ```
 
-or by downloading the source package powerTCR_0.1.0.tar.gz
-[a relative link](powerTCR_0.1.).tar.gz)
+or by downloading the [source package](powerTCR_0.1.0.tar.gz)
 
 ## Getting going
 
