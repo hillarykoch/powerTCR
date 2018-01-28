@@ -11,6 +11,7 @@ biocLite("powerTCR")
 ```
 
 or by downloading the source package powerTCR_0.1.0.tar.gz
+[a relative link](powerTCR_0.1.).tar.gz)
 
 ## Getting going
 
