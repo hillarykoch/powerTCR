@@ -14,7 +14,7 @@ or by downloading the [source package](powerTCR_0.1.0.tar.gz).
 
 ## Getting going
 
-See the package vignette for a detailed walkthrough of package features!
+See the [package vignette](/vignettes/powerTCR.Rmd) for a detailed walkthrough of package features!
 
 ## Citation
 
