@@ -1,0 +1,23 @@
+Package: powerTCR
+Type: Package
+Title: Model-Based Comparative Analysis of the TCR Repertoire
+Version: 0.1.0
+Date: 2018-01-23
+Author: Hillary Koch
+Maintainer: Hillary Koch <hbk5086@psu.edu>
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: Artistic-2.0
+Encoding: UTF-8
+LazyData: true
+Imports:
+    cubature,
+    dplyr,
+    evmix,
+    magrittr,
+    purrr,
+    truncdist,
+    VGAM
+Suggests: BiocStyle, knitr, rmarkdown, tcR, LymphoSeq
+VignetteBuilder: knitr
+biocViews: Software, Clustering, BiomedicalInformatics
