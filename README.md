@@ -14,4 +14,8 @@ biocLite("powerTCR")
 
 See the package vignette for a detailed walkthrough of package features!
 
+## Citation
+
+Paper yet to appear.
+
 
