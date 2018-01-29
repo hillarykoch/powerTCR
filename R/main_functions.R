@@ -75,10 +75,7 @@ fdiscgammagpd <- function(x, useq, shift = NULL, pvector=NULL,
                                                    phiu[[i]],
                                                    shift,
                                                    method=method),
-                                 error = function(err)
-                                     message("gamma part could not be fit at a
-                                             specified threshold.")
-                                 NA)
+                                 error = function(err) NA)
         gpdfit[[i]] <- tryCatch(expr = fdiscgpd(pvector[4:5],
                                                 x[tail[[i]]],
                                                 useq[i],
@@ -96,11 +93,7 @@ fdiscgammagpd <- function(x, useq, shift = NULL, pvector=NULL,
                                                              useq[i],
                                                              phiu[[i]],
                                                              method=method),
-                                             error = function(err2) 
-                                             message("GPD part could not be fit
-                                                     at a specified
-                                                     threshold.")
-                                             NA)
+                                             error = function(err2) NA)
                                 })
         nllhu[i] <- tryCatch(expr = gammfit[[i]]$value + gpdfit[[i]]$value,
                              error = function(err) NA)
