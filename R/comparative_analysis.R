@@ -41,7 +41,7 @@ JS_desponds <- function(grid, Cminp, Cminq, alphap, alphaq){
         stop("Cminp and Cminq must be integers.")
     }
     
-    if(alphap <= 0 or alphaq <= 0){
+    if(alphap <= 0 | alphaq <= 0){
         stop("alphap and alphaq must be greater than 0.")
     }
     
