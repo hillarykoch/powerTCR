@@ -3,6 +3,14 @@
 # x is a vector of clone sizes
 
 fdesponds <- function(x){
+    if(!is(x, "numeric")){
+        stop("x must be numeric.")
+    }
+    
+    if(any(x != round(x))){
+        stop("all elements in x must be integers.")
+    }
+    
     x <- sort(x)
     Cmins <- unique(x)
     alpha <- rep(NA, length(Cmins))

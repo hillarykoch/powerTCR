@@ -25,6 +25,26 @@ eval_desponds <- function(t, Cminp, Cminq, alphap, alphaq){
 }
 
 JS_desponds <- function(grid, Cminp, Cminq, alphap, alphaq){
+    if(!is(grid, "numeric")){
+        stop("grid must be numeric.")
+    }
+    
+    if(any(grid != round(grid))){
+        stop("all elements in grid must be integers.")
+    }
+    
+    if(any(!is(c(Cminp, Cminq, alphap, alphaq), "numeric"))){
+        stop("Cminp, Cminq, alphap, and alphaq must be numeric.")
+    }
+    
+    if(Cminp != round(Cminp) | Cminq != round(Cminq)){
+        stop("Cminp and Cminq must be integers.")
+    }
+    
+    if(alphap <= 0 or alphaq <= 0){
+        stop("alphap and alphaq must be greater than 0.")
+    }
+    
     lower = min(grid)
     upper = max(grid)
 
@@ -38,6 +58,46 @@ JS_desponds <- function(grid, Cminp, Cminq, alphap, alphaq){
 # Computes Jensen-Shannon divergence of 2 distributions
 JS_spliced <- function(grid, shiftp, shiftq, phip, phiq, shapep, shapeq, ratep,
                        rateq, threshp, threshq, sigmap, sigmaq, xip, xiq){
+    if(!is(grid, "numeric")){
+        stop("grid must be numeric.")
+    }
+    
+    if(any(grid != round(grid))){
+        stop("all elements in grid must be integers.")
+    }
+    
+    if(any(!is(c(shiftp, shiftq, phip, phiq, shapep, shapeq,
+                 ratep, rateq, threshp, threshq,
+                 sigmap, sigmaq, xip, xiq), "numeric"))){
+        stop("shiftp, shiftq, phip, phiq, shapep, shapeq, ratep, rateq,
+              threshp, threshq, sigmap, sigmaq, xip, and xiq must be numeric.")
+    }
+    
+    if(shiftp != round(shiftp) | shiftq != round(shiftq)){
+        stop("shiftp and shiftq must be integers.")
+    }
+    
+    if(any(c(shapep, shapeq, ratep, rateq, sigmap, sigmaq) <= 0)){
+        stop("shapep, shapeq, ratep, rateq, sigmap, and sigmaq must be 
+             greater than 0.")
+    }
+    
+    if(any(c(phip, phiq) > 1) | any(c(phip, phiq) < 0)){
+        stop("phip and phiq must be in [0,1].")
+    }
+    
+    if(ratep <= 0 or rateq <= 0){
+        stop("ratep and rateq must be greater than 0.")
+    }
+    
+    if(shapep <= 0 or shapeq <= 0){
+        stop("shapep and shapeq must be greater than 0.")
+    }
+    
+    if(threshp != round(threshp) | threshq != round(threshq)){
+        stop("threshp and threshq must be integers.")
+    }
+    
     K <- max(grid)
 
     P <- ddiscgammagpd(min(grid):K, shape = shapep, rate = ratep,
@@ -86,6 +146,10 @@ JS_spliced <- function(grid, shiftp, shiftq, phip, phiq, shapep, shapeq, ratep,
 clusterPlot <- function(distances, method = c("complete", "ward.D", "ward.D2",
                                               "single", "average", "mcquitty",
                                               "median", "centroid")){
+    if(!(is(distances, "matrix"))){
+        stop("distances must be a matrix.")
+    }
+    
     if(length(method) > 1){
         warning("More than one clustering method given. Only the first listed
                 will be executed.")

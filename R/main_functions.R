@@ -4,6 +4,43 @@
 
 fdiscgammagpd <- function(x, useq, shift = NULL, pvector=NULL,
                           std.err = TRUE, method = "Nelder-Mead", ...){
+    if(!is(x, "numeric")){
+        stop("x must be numeric.")
+    }
+    
+    if(!is(shift, "numeric")){
+        stop("shift must be numeric.")
+    }
+    
+    if(!is(useq, "numeric")){
+        stop("useq must be numeric.")
+    }
+    
+    if(any(x != round(x))){
+        stop("all elements in x must be integers.")
+    }
+    
+    if(any(shift != round(shift))){
+        stop("shift must be an integer.")
+    }
+    
+    if(any(useq != round(shift))){
+        stop("all elements in useq must be integers.")
+    }
+    
+    if(!(length(pvector) == 5)){
+        stop("pvector must contain 5 elements.")
+    }
+    
+    if(!(is.logical(std.err))){
+        stop("std.err must be TRUE or FALSE.")
+    }
+    
+    if(!(method %in% c("Nelder-Mead","BFGS",
+                       "CG", "L-BFGS-B", "SANN", "Brent"))){
+        stop("invalid method supplied.")
+    }
+    
     if(is.null(shift)){
         shift <- min(x)
     }
@@ -38,7 +75,10 @@ fdiscgammagpd <- function(x, useq, shift = NULL, pvector=NULL,
                                                    phiu[[i]],
                                                    shift,
                                                    method=method),
-                                 error = function(err) NA)
+                                 error = function(err)
+                                     message("gamma part could not be fit at a
+                                             specified threshold.")
+                                 NA)
         gpdfit[[i]] <- tryCatch(expr = fdiscgpd(pvector[4:5],
                                                 x[tail[[i]]],
                                                 useq[i],
@@ -56,7 +96,11 @@ fdiscgammagpd <- function(x, useq, shift = NULL, pvector=NULL,
                                                              useq[i],
                                                              phiu[[i]],
                                                              method=method),
-                                             error = function(err2) NA)
+                                             error = function(err2) 
+                                             message("GPD part could not be fit
+                                                     at a specified
+                                                     threshold.")
+                                             NA)
                                 })
         nllhu[i] <- tryCatch(expr = gammfit[[i]]$value + gpdfit[[i]]$value,
                              error = function(err) NA)
@@ -90,6 +134,34 @@ fdiscgammagpd <- function(x, useq, shift = NULL, pvector=NULL,
 
 # Need this for rgammagpd
 qdiscgammagpd <- function(p, shape, rate, u, sigma, xi, phiu=NULL, shift = 0){
+    if(!is(x, "numeric")){
+        stop("x must be numeric.")
+    }
+    
+    if(!is(shift, "numeric")){
+        stop("shift must be numeric.")
+    }
+    
+    if(any(x != floor(x))){
+        stop("x must be an integer")
+    }
+    
+    if(any(shift != round(shift))){
+        stop("shift must be an integer.")
+    }
+    
+    if(any(c(shape, rate, sigma) <= 0)){
+        stop("shape, rate, and sigma must all be positive.")
+    }
+    
+    if(phiu < 0 | phiu > 1){
+        stop("phiu must be in [0,1].")
+    }
+    
+    if(p < 0 | p > 1){
+        stop("p must be in [0,1].")
+    }
+    
     if(is.null(phiu)){
         phiu <- 1-pdiscgamma(u-1, shape=shape, rate=rate,
                              thresh=Inf, phiu = 0, shift=shift)
@@ -112,6 +184,30 @@ qdiscgammagpd <- function(p, shape, rate, u, sigma, xi, phiu=NULL, shift = 0){
 
 # Generate data from the model!!
 rdiscgammagpd <- function(n, shape, rate, u, sigma, xi, phiu=NULL, shift = 0){
+    if(!is(x, "numeric")){
+        stop("x must be numeric.")
+    }
+    
+    if(!is(shift, "numeric")){
+        stop("shift must be numeric.")
+    }
+    
+    if(any(x != floor(x))){
+        stop("x must be an integer")
+    }
+    
+    if(any(shift != round(shift))){
+        stop("shift must be an integer.")
+    }
+    
+    if(any(c(shape, rate, sigma) <= 0)){
+        stop("shape, rate, and sigma must all be positive.")
+    }
+    
+    if(phiu < 0 | phiu > 1){
+        stop("phiu must be in [0,1].")
+    }
+    
     if(is.null(phiu)){
         phiu <- 1-pdiscgamma(u-1, shape=shape, rate=rate,
                              thresh=Inf, phiu = 0, shift=shift)
@@ -123,9 +219,30 @@ rdiscgammagpd <- function(n, shape, rate, u, sigma, xi, phiu=NULL, shift = 0){
 
 ddiscgammagpd <- function(x, shape, rate, u, sigma, xi,
                           phiu=NULL, shift = 0, log = FALSE){
+    if(!is(x, "numeric")){
+        stop("x must be numeric.")
+    }
+    
+    if(!is(shift, "numeric")){
+        stop("shift must be numeric.")
+    }
+    
     if(any(x != floor(x))){
         stop("x must be an integer")
     }
+    
+    if(any(shift != round(shift))){
+        stop("shift must be an integer.")
+    }
+    
+    if(any(c(shape, rate, sigma) <= 0)){
+        stop("shape, rate, and sigma must all be positive.")
+    }
+    
+    if(phiu < 0 | phiu > 1){
+        stop("phiu must be in [0,1].")
+    }
+    
     if(is.null(phiu)){
         phiu <- 1-pdiscgamma(u-1, shape=shape, rate=rate,
                              thresh=Inf, phiu = 0, shift=shift)
@@ -144,6 +261,30 @@ ddiscgammagpd <- function(x, shape, rate, u, sigma, xi,
 }
 
 pdiscgammagpd <- function(q, shape, rate, u, sigma, xi, phiu=NULL, shift=0){
+    if(!is(x, "numeric")){
+        stop("x must be numeric.")
+    }
+    
+    if(!is(shift, "numeric")){
+        stop("shift must be numeric.")
+    }
+    
+    if(any(x != floor(x))){
+        stop("x must be an integer")
+    }
+    
+    if(any(shift != round(shift))){
+        stop("shift must be an integer.")
+    }
+    
+    if(any(c(shape, rate, sigma) <= 0)){
+        stop("shape, rate, and sigma must all be positive.")
+    }
+    
+    if(phiu < 0 | phiu > 1){
+        stop("phiu must be in [0,1].")
+    }
+    
     probs <- sapply(q, function(q)
         ddiscgammagpd(0:q, shape, rate, u, sigma, xi, phiu, shift) %>%
             sum)
