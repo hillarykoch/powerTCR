@@ -86,7 +86,7 @@ JS_spliced <- function(grid, shiftp, shiftq, phip, phiq, shapep, shapeq, ratep,
         stop("phip and phiq must be in [0,1].")
     }
     
-    if(ratep <= 0 or rateq <= 0){
+    if(ratep <= 0 | rateq <= 0){
         stop("ratep and rateq must be greater than 0.")
     }
     
