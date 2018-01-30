@@ -3,8 +3,8 @@ title: "powerTCR"
 author: "Hillary Koch"
 package: powerTCR
 abstract: >
-    This vignette walks through the functionality of the powerTCR package for analyzing the T cell receptor (TCR) repertoire. The package's main goals are to fit models to the clone size distribution of the TCR repertoire, and to perform model-based comparative analysis of samples, following the work of __my paper__. For user simplicity, powerTCR can handle data in the formats MiTCR, MiTCR with UMIs, MiGEC, VDJtools, ImmunoSEQ (both old and new), MiXCR, and IMSEQ. If not using one of these formats, powerTCR only requires that the user be able to turn a sample TCR repertoire into a vector of clone sizes.
-output: BiocStyle::html_document
+    This vignette walks through the functionality of the powerTCR package for analyzing the T cell receptor repertoire. The package's main goals are to fit models to the clone size distribution of the TCR repertoire, and to perform model-based comparative analysis of samples, following the work of __my paper__. For user simplicity, powerTCR can handle data in the formats MiTCR, MiTCR with UMIs, MiGEC, VDJtools, ImmunoSEQ (both old and new), MiXCR, and IMSEQ. If not using one of these formats, powerTCR only requires that the user be able to turn a sample TCR repertoire into a vector of clone sizes.
+output: BiocStyle::pdf_document
 vignette: > 
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
@@ -12,7 +12,7 @@ vignette: >
 ---
 
 # Introduction
-The powerTCR package allows users to implement the model-based methods discussed in __my paper__. Specifically, the clone size distribution of the TCR repertoire exhibits imperfect power law behavior; powerTCR supports a model that keeps this fact in mind. Additionally, powerTCR contains tools to fit another power law model for the TCR repertoire detailed in Desponds et al. (2016). Given a collection of sampled TCR repertoires, powerTCR equips the user with tools for comparative analysis of the samples, using one of two model-based approaches. This leads to hierarchical clustering of the samples to determine their relatedness based on the clone size distribution alone.
+The powerTCR package allows users to implement the model-based methods discussed in __my paper__. Specifically, the clone size distribution of the T cell receptor (TCR) repertoire exhibits imperfect power law behavior; powerTCR supports a model that keeps this fact in mind. Additionally, powerTCR contains tools to fit another power law model for the TCR repertoire detailed in Desponds et al. (2016). Given a collection of sampled TCR repertoires, powerTCR equips the user with tools for comparative analysis of the samples, using one of two model-based approaches. This leads to hierarchical clustering of the samples to determine their relatedness based on the clone size distribution alone.
 
 ## Summary of features
 
@@ -29,7 +29,7 @@ In order to fit a model with powerTCR, you only need to be able to supply a __ve
 
 powerTCR contains a toy data set, called $\texttt{repertoires}$, with two TCR repertoire samples, which we will use throughout this vignette. You can load powerTCR and this data set by typing:
 
-```{r, echo = 4:5}
+```{r, echo = 4:5, message = FALSE, warning = FALSE}
 # This installs packages from BioConductor
 # source("https://bioconductor.org/biocLite.R")
 # biocLite("powerTCR")
@@ -84,7 +84,7 @@ for(i in 1:length(repertoires)){
     # Choose a sequence of possible u for your model fit
     # Ideally, you want to search a lot of thresholds, but for quick
     # computation, we are only going to test 4
-    thresholds <- unique(quantile(repertoires[[i]], c(.75,.8,.85,.9)))
+    thresholds <- unique(round(quantile(repertoires[[i]], c(.75,.8,.85,.9))))
     
     fits[[i]] <- fdiscgammagpd(repertoires[[i]], useq = thresholds,
                                shift = min(repertoires[[i]]))
