@@ -24,7 +24,7 @@ fdiscgammagpd <- function(x, useq, shift = NULL, pvector=NULL,
         stop("shift must be an integer.")
     }
     
-    if(any(useq != round(shift))){
+    if(any(useq != round(useq))){
         stop("all elements in useq must be integers.")
     }
     
