@@ -4,7 +4,7 @@ author: "Hillary Koch"
 package: powerTCR
 abstract: >
     This vignette walks through the functionality of the powerTCR package for analyzing the T cell receptor repertoire. The package's main goals are to fit models to the clone size distribution of the TCR repertoire, and to perform model-based comparative analysis of samples, following the work of __my paper__. For user simplicity, powerTCR can handle data in the formats MiTCR, MiTCR with UMIs, MiGEC, VDJtools, ImmunoSEQ (both old and new), MiXCR, and IMSEQ. If not using one of these formats, powerTCR only requires that the user be able to turn a sample TCR repertoire into a vector of clone sizes.
-output: BiocStyle::pdf_document
+output: BiocStyle::html_document
 vignette: > 
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
