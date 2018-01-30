@@ -18,6 +18,6 @@ Imports:
     purrr,
     truncdist,
     VGAM
-Suggests: BiocStyle, knitr, rmarkdown, tcR, LymphoSeq
+Suggests: BiocStyle, knitr, rmarkdown, tcR
 VignetteBuilder: knitr
 biocViews: Software, Clustering, BiomedicalInformatics
