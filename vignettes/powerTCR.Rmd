@@ -12,7 +12,7 @@ vignette: >
 ---
 
 # Introduction
-The powerTCR package allows users to implement the model-based methods discussed in __my paper__ Specifically, the clone size distribution of the TCR repertoire exhibits imperfect power law behavior; powerTCR supports a model that keeps this fact in mind. Additionally, powerTCR contains tools to fit another power law model for the TCR repertoire detailed in Desponds et al. (2016). Given a collection of sampled TCR repertoires, powerTCR equips the user with tools for comparative analysis of the samples, using one of two model-based approaches. This leads to hierarchical clustering of the samples to determine their relatedness based on the clone size distribution alone.
+The powerTCR package allows users to implement the model-based methods discussed in __my paper__. Specifically, the clone size distribution of the TCR repertoire exhibits imperfect power law behavior; powerTCR supports a model that keeps this fact in mind. Additionally, powerTCR contains tools to fit another power law model for the TCR repertoire detailed in Desponds et al. (2016). Given a collection of sampled TCR repertoires, powerTCR equips the user with tools for comparative analysis of the samples, using one of two model-based approaches. This leads to hierarchical clustering of the samples to determine their relatedness based on the clone size distribution alone.
 
 ## Summary of features
 
