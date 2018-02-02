@@ -29,8 +29,8 @@ This function takes count data and fits the gamma-GPD spliced threshold model to
 \author{\email{hbk5086@psu.edu}}
 \examples{
 data("repertoires")
-thresholds1 <- unique(quantile(repertoires[[1]], c(.75,.8,.85,.9,.95)))
-thresholds2 <- unique(quantile(repertoires[[2]], c(.75,.8,.85,.9,.95)))
+thresholds1 <- unique(round(quantile(repertoires[[1]], c(.75,.8,.85,.9,.95))))
+thresholds2 <- unique(round(quantile(repertoires[[2]], c(.75,.8,.85,.9,.95))))
 
 fit1 <- fdiscgammagpd(repertoires[[1]], useq = thresholds1, shift = min(repertoires[[1]]))
 fit2 <- fdiscgammagpd(repertoires[[2]], useq = thresholds1, shift = min(repertoires[[2]]))
