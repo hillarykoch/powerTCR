@@ -11,10 +11,11 @@ Encoding: UTF-8
 LazyData: true
 Imports:
     cubature,
-    dplyr,
     evmix,
     magrittr,
+    methods,
     purrr,
+    stats,
     truncdist,
     VGAM
 Suggests: BiocStyle, knitr, rmarkdown, tcR
