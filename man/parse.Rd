@@ -6,7 +6,7 @@
 Load in and parse TCR data files for use by powerTCR
 }
 \description{
-These functions leverage the \link[tcR]{parse.file} and \link[tcR]{parse.folder} functions from the tcR package. They are wrappers that output data in the format taken by powerTCR.
+These functions leverage the parse.file and \link[tcR]{parse.folder} functions from the tcR package. They are wrappers that output data in the format taken by powerTCR.
 }
 \usage{
 parseFile(file, format = c('mitcr', 'mitcrbc', 'migec', 'vdjtools',
