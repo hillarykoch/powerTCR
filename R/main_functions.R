@@ -151,7 +151,7 @@ qdiscgammagpd <- function(p, shape, rate, u, sigma, xi, phiu=NULL, shift = 0){
         }
     }
 
-    if(p < 0 | p > 1){
+    if(any(p < 0 | p > 1)){
         stop("p must be in [0,1].")
     }
 
@@ -258,16 +258,16 @@ ddiscgammagpd <- function(x, shape, rate, u, sigma, xi,
 }
 
 pdiscgammagpd <- function(q, shape, rate, u, sigma, xi, phiu=NULL, shift=0){
-    if(!is(x, "numeric")){
-        stop("x must be numeric.")
+    if(!is(q, "numeric")){
+        stop("q must be numeric.")
     }
 
     if(!is(shift, "numeric")){
         stop("shift must be numeric.")
     }
 
-    if(any(x != floor(x))){
-        stop("x must be an integer")
+    if(any(q != floor(q))){
+        stop("q must be an integer")
     }
 
     if(shift != round(shift)){
