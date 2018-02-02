@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "library(ape)\nlibrary(phangorn)\n\niter <- 100\n\ntruth <- read.tree(text = \"(((a,b),c),d);\")\nphylos <- list()\nfor(i in 1:iter){\n    phylos[[i]] <- read.tree(paste0(\"rooted_supertree\", i-1, \".txt\"))\n}\n\n# if RF = 0, we got the true tree\nRF <- unlist(lapply(phylos, function(X) RF.dist(X, truth, rooted = T)))\n\n\n",
+    "created" : 1517342505872.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2997099574",
+    "id" : "FA700822",
+    "lastKnownWriteTime" : 1517364497,
+    "last_content_update" : 1517364497549,
+    "path" : "~/Desktop/temp/rootedsupertree/abcd.R",
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

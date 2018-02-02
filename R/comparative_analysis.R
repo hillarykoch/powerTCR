@@ -41,7 +41,7 @@ JS_desponds <- function(grid, Cminp, Cminq, alphap, alphaq){
         stop("Cminp and Cminq must be integers.")
     }
     
-    if(alphap <= 0 or alphaq <= 0){
+    if(alphap <= 0 | alphaq <= 0){
         stop("alphap and alphaq must be greater than 0.")
     }
     
@@ -86,11 +86,11 @@ JS_spliced <- function(grid, shiftp, shiftq, phip, phiq, shapep, shapeq, ratep,
         stop("phip and phiq must be in [0,1].")
     }
     
-    if(ratep <= 0 or rateq <= 0){
+    if(ratep <= 0 | rateq <= 0){
         stop("ratep and rateq must be greater than 0.")
     }
     
-    if(shapep <= 0 or shapeq <= 0){
+    if(shapep <= 0 | shapeq <= 0){
         stop("shapep and shapeq must be greater than 0.")
     }
     
