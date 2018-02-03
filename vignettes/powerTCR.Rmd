@@ -107,7 +107,7 @@ You can also view the likelihoods for every other threshold you checked (in nllh
 
 ## The Type-I Pareto model
 
-For reproducability purposes, powerTCR also provides a means to fit the model of Desponds et al. (2016). This model is investigated and discussed in __my paper__. The model follows a type-I Pareto distribution, with density:
+For reproducibility purposes, powerTCR also provides a means to fit the model of Desponds et al. (2016). This model is investigated and discussed in __my paper__. The model follows a type-I Pareto distribution, with density:
 
 \[
 f(x) = \frac{\alpha u^\alpha}{x^{\alpha+1}}.
@@ -188,7 +188,7 @@ s3 <- rdiscgammagpd(1000, shape = 10, rate = .3, u = 45, sigma = 20,
                     xi = .7, shift = 1)
 ```
 
-__NB:__ it is possible to simulate data according to a distribution that is totally unrealistic. For example, what if you chose a very light-tailed gamma distribution and a comparatively very high threshold, but insisted (using) $\phi$) that data be observed above the threshold? Here is what happens:
+__NB:__ it is possible to simulate data according to a distribution that is totally unrealistic. For example, what if you chose a very light-tailed gamma distribution and a comparatively very high threshold, but insisted (using $\phi$) that data be observed above the threshold? Here is what happens:
 
 ```{r}
 bad <- rdiscgammagpd(1000, shape = 1, rate = 2, u = 25, sigma = 10,

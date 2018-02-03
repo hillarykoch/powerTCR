@@ -16,14 +16,14 @@ clusterPlot(distances, method = c("complete", "ward.D", "ward.D2", "single",
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{distances}{A symmetric matric containined the Jensen-Shannon distance between pairs of distributions.}
+  \item{distances}{A symmetric matrix containined the Jensen-Shannon distance between pairs of distributions.}
   \item{method}{Linkage method, as in \link{hclust}}
 }
 \value{A basic plot of the induced hierarchical clustering.}
 \author{\email{hbk5086@psu.edu}}
 \note{
 The distances must be given as a matrix object, not a distance object. The
-distance between a distribution and itsself is 0. This corresponds to a
+distance between a distribution and itself is 0. This corresponds to a
 matrix diagonal of 0.
 }
 \seealso{
