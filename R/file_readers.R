@@ -21,7 +21,7 @@ parseFile <- function(file, format = c('mitcr', 'mitcrbc', 'migec', 'vdjtools',
     data <- tcR::parse.file(.filename = file, .format = format)
 
     if(inframe){
-        data <- get.inframes(data)
+        data <- tcR::get.inframes(data)
     }
 
     counts <- data$Read.count
@@ -45,10 +45,10 @@ parseFolder <- function(folder, format = c('mitcr', 'mitcrbc', 'migec',
         stop("inframe must be TRUE or FALSE.")
     }
     
-    dataList <- parse.folder(.folderpath = folder, .format = format)
+    dataList <- tcR::parse.folder(.folderpath = folder, .format = format)
 
     if(inframe){
-        dataList <- map(dataList, get.inframes)
+        dataList <- map(dataList, tcR::get.inframes)
     }
 
     counts <- map(dataList, "Read.count")

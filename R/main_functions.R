@@ -61,11 +61,11 @@ fdiscgammagpd <- function(x, useq, shift = NULL, pvector=NULL,
         pvector[5] <- initfgpd$mle[2]
     }
 
-    bulk <- lapply(1:length(useq),
+    bulk <- lapply(seq_along(useq),
                    function(idx,x,useq) x < useq[idx], x=x, useq=useq)
-    tail <- lapply(1:length(useq),
+    tail <- lapply(seq_along(useq),
                    function(idx,x,useq) x >= useq[idx], x=x, useq=useq)
-    phiu <- lapply(1:length(useq),
+    phiu <- lapply(seq_along(useq),
                    function(idx,tail) mean(tail[[idx]]), tail=tail)
 
     gammfit <- list()

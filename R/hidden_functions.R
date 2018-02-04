@@ -17,7 +17,7 @@ ddiscgamma <- function(x, shape, rate, thresh, phiu, shift = 0, log = FALSE){
         b <- pgamma(thresh-shift, shape=shape, rate=rate)
         out[x < thresh] <- ((1-phiu)*(up-down)/b)[x < thresh]
     } else{
-        b <- pgamma(thresh-shift, shape=shape, rate=rate, log = TRUE)
+        b <- pgamma(thresh-shift, shape=shape, rate=rate, log.p = TRUE)
         out[x < thresh] <- (log(1-phiu)+log(up-down) - b)[x < thresh]
     }
     out
