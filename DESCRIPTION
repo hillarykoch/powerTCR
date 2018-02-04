@@ -1,10 +1,10 @@
 Package: powerTCR
 Type: Package
 Title: Model-Based Comparative Analysis of the TCR Repertoire
-Version: 0.99.9
+Version: 0.99.10
 Date: 2018-01-23
 Author: Hillary Koch
-Maintainer: Hillary Koch <hbk5086@psu.edu>
+Maintainer: Hillary Koch <hillary.koch01@gmail.com>
 Description: This package provides a model for the clone size distribution of the TCR repertoire. Further, it permits comparative analysis of TCR repertoire libraries based on theoretical model fits.
 License: Artistic-2.0
 Encoding: UTF-8
