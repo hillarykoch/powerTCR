@@ -24,9 +24,9 @@ parseFolder(folder, format = c('mitcr', 'mitcrbc', 'migec', 'vdjtools',
   \item{inframe}{Logical. Should counts only from in-frame sequences be returned? Defaults to TRUE.}
 }
 \value{
-\item{\code{parseFolder} returns a list. Every element of the list is a vector of counts corresponding to a sample repertoire.}
+\code{parseFolder} returns a list. Every element of the list is a vector of counts corresponding to a sample repertoire.
 
-\item{\code{parseFile} returns a vector of counts corresponding to the sample repertoire.}
+\code{parseFile} returns a vector of counts corresponding to the sample repertoire.
 }
 \references{
 Nazarov, Vadim I., et al. "tcR: an R package for T cell receptor repertoire advanced data analysis." BMC bioinformatics 16.1 (2015): 175.
