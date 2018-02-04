@@ -44,4 +44,11 @@ plot(log(d), log(1:100))
 
 # When phiu is specified to .2, exactly 80\% of the data are below the threshold u
 pdiscgammagpd(24, shape = 5, rate = .25, u = 25, sigma = 15, xi = .5, phiu = .2, shift = 1)
+
+# Plot simulated data versus theoretical quantiles
+quantiles <- qdiscgammagpd((100:1)/101, shape = 5, rate = .25, u = 25, sigma = 15, xi = .5, shift = 1)
+plot(d, quantiles)
+
+# Density below shift value is 0
+ddiscgammagpd(0, shape = 5, rate = .25, u = 25, sigma = 15, xi = .5, shift = 1)
 }
