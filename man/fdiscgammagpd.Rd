@@ -15,6 +15,7 @@ This function takes count data and fits the gamma-GPD spliced threshold model to
     \item{pvector}{A vector of 5 elements corresponding to the initial parameter estimates. These 5 initial values are for the gamma shape and rate, the threshold, and the GPD sigma and xi. If they are not prespecified, the function computes pvector automatically.}
     \item{std.err}{Logical. Should the standard errors on the estimates be computed from the Hessian matrix?}
     \item{method}{Character string listing optimization method fed to \link[stats]{optim}. Defaults to Nelder-Mead.}
+    \item{...}{Other arguments passed to the function.}
 }
 \value{
     \item{x}{Numerical vector of the original data input}

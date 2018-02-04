@@ -23,7 +23,7 @@ rdiscgammagpd(n, shape, rate, u, sigma, xi, phiu = NULL, shift = 0)
     \item{rate}{rate parameter beta of the gamma distribution.}
     \item{u}{threshold.}
     \item{sigma}{scale parameter sigma of the GPD.}
-    \item{xi}{shape parameter xi of the GPD
+    \item{xi}{shape parameter xi of the GPD}
     \item{phiu}{Propotion of data greater than or equal to threshold u.}
     \item{shift}{value the complete distribution is shifted by. Ideally, this is the smallest value of the count data from one sample.}
     \item{log}{Logical; if TRUE, probabilities p are given as log(p).}
