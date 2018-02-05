@@ -4,13 +4,13 @@ This is an R package for fitting the discrete gamma-GPD spliced threshold model 
 
 ## Installation
 
-Install this package from Bioconductor by typing in R
-```{r}
-source("https://bioconductor.org/biocLite.R")
-biocLite("powerTCR")
-```
+Install and load this package from Bioconductor by typing in R
 
-or by downloading directly from this repository.
+```{r}
+library(devtools)
+install_github("hillarykoch/powerTCR")
+library(powerTCR)
+```
 
 ## Getting going
 
