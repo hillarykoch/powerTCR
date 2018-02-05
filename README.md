@@ -4,7 +4,7 @@ This is an R package for fitting the discrete gamma-GPD spliced threshold model 
 
 ## Installation
 
-Install and load this package from Bioconductor by typing in R
+Install and load this package from GitHub by typing in R
 
 ```{r}
 library(devtools)
