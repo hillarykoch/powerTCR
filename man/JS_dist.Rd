@@ -7,13 +7,13 @@ Compute the Jensen-Shannon distance between two model fits
 This function is a convenient wrapper for JS_spliced and JS_desponds. After models have been fit to your samples, the pairwise JS distance can be computed between them. This function takes two model fits and outputs the JS distance between them. The model fits must be of the same type. That is, they are both fits from the spliced threshold model, or they are both fits from the Desponds et al. model. When all pairwise distances have been computed, they can be used to do hierarchical clustering.
 }
 \usage{
-JS_dist(fit1, fit2, grid, modelType = c("Spliced", "Desponds"))
+JS_dist(fit1, fit2, grid, modelType = "Spliced")
 }
 \arguments{
   \item{fit1}{A fit from the specified modelType.}
   \item{fit2}{A fit from the specified modelType.}
   \item{grid}{Vector of integers over which to compute the JS distance. The minimum of the grid is ideally the minimum count of all samples being compared. The maximum is ideally something very large (e.g. 100,000) in order to all or nearly all of the model density. The grid should include every integer in its range. See Examples.}
-  \item{modelType}{The type of model fit1 and fit2 are from. If they were generated using fdiscgammagpd, the type of model is "Spliced". If they were generated using fdesponds, the type of model is "Desponds".}
+  \item{modelType}{The type of model fit1 and fit2 are from. If they were generated using fdiscgammagpd, the type of model is "Spliced". If they were generated using fdesponds, the type of model is "Desponds". Defaults to "Spliced".}
 }
 \details{
 For 2 discrete distributions P and Q, the Jensen-Shannon distance between them is
