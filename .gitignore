@@ -4,3 +4,5 @@
 *.Ruserdata
 *.Rproj.user
 *.html
+.Rproj.user
+*.DS_store

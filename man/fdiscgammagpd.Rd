@@ -19,6 +19,7 @@ This function takes count data and fits the gamma-GPD spliced threshold model to
 }
 \value{
     \item{x}{Numerical vector of the original data input}
+    \item{shift}{Numeric specifying the original shift input.}
     \item{init}{Numerical vector of the initial values of the parameter estimates. This is the same as pvector.}
     \item{useq}{Numerical vector containing the thresholds the grid search was performed over.}
     \item{nllhuseq}{Numerical vector of negative log likelihoods computed at each threshold in useq.}
@@ -33,8 +34,10 @@ data("repertoires")
 thresholds1 <- unique(round(quantile(repertoires[[1]], c(.75,.8,.85,.9,.95))))
 thresholds2 <- unique(round(quantile(repertoires[[2]], c(.75,.8,.85,.9,.95))))
 
-fit1 <- fdiscgammagpd(repertoires[[1]], useq = thresholds1, shift = min(repertoires[[1]]))
-fit2 <- fdiscgammagpd(repertoires[[2]], useq = thresholds1, shift = min(repertoires[[2]]))
+fit1 <- fdiscgammagpd(repertoires[[1]], useq = thresholds1,
+                        shift = min(repertoires[[1]]))
+fit2 <- fdiscgammagpd(repertoires[[2]], useq = thresholds1,
+                        shift = min(repertoires[[2]]))
 
 fit1
 fit2

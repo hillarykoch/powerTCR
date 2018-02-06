@@ -1,7 +1,7 @@
-##----------------------------------------------------------------------------------
+##-----------------------------------------------------------------------------
 ## Density, distribution, and quantile functions, random number generation
 ## for discrete truncated gamma and discrete gpd
-##----------------------------------------------------------------------------------
+##-----------------------------------------------------------------------------
 
 ddiscgamma <- function(x, shape, rate, thresh, phiu, shift = 0, log = FALSE){
     if(any(x != floor(x))){

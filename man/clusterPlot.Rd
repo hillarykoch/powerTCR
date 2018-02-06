@@ -49,13 +49,20 @@ grid <- min(c(s1,s2,s3)):10000
 for(i in 1:2){
     for(j in (i+1):3){
         distances[i,j] <- JS_spliced(grid,
-                                     shiftp = min(fits[[i]]$x), shiftq = min(fits[[j]]$x),
-                                     phip = fits[[i]]$mle['phi'], phiq = fits[[j]]$mle['phi'],
-                                     shapep = fits[[i]]$mle['shape'], shapeq = fits[[j]]$mle['shape'],
-                                     ratep = fits[[i]]$mle['rate'], rateq = fits[[j]]$mle['rate'],
-                                     threshp = fits[[i]]$mle['thresh'], threshq = fits[[j]]$mle['thresh'],
-                                     sigmap = fits[[i]]$mle['sigma'], sigmaq = fits[[j]]$mle['sigma'],
-                                     xip = fits[[i]]$mle['xi'], xiq = fits[[j]]$mle['xi'])
+                                     shiftp = min(fits[[i]]$x),
+                                     shiftq = min(fits[[j]]$x),
+                                     phip = fits[[i]]$mle['phi'],
+                                     phiq = fits[[j]]$mle['phi'],
+                                     shapep = fits[[i]]$mle['shape'],
+                                     shapeq = fits[[j]]$mle['shape'],
+                                     ratep = fits[[i]]$mle['rate'],
+                                     rateq = fits[[j]]$mle['rate'],
+                                     threshp = fits[[i]]$mle['thresh'],
+                                     threshq = fits[[j]]$mle['thresh'],
+                                     sigmap = fits[[i]]$mle['sigma'],
+                                     sigmaq = fits[[j]]$mle['sigma'],
+                                     xip = fits[[i]]$mle['xi'], 
+                                     xiq = fits[[j]]$mle['xi'])
     }
 }
 

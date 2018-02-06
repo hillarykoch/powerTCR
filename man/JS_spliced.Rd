@@ -41,7 +41,7 @@ The function directly returns the Jensen-Shannon distance between two fitted dis
 }
 \author{\email{hbk5086@psu.edu}}
 \seealso{
-\code{\link{JS_spliced}}
+\code{\link{JS_spliced} \link{JS_dist}}
 }
 \examples{
 data("repertoires")
@@ -61,7 +61,8 @@ grid <- min(c(repertoires[[1]], repertoires[[2]])):1000
 
 # Compute the Jensen-Shannon distance between fit1 and fit2
 dist <- JS_spliced(grid,
-                    shiftp = min(repertoires[[1]]), shiftq = min(repertoires[[2]]),
+                    shiftp = min(repertoires[[1]]),
+                    shiftq = min(repertoires[[2]]),
                     phip = fit1$mle['phi'], phiq = fit2$mle['phi'],
                     shapep = fit1$mle['shape'], shapeq = fit2$mle['shape'],
                     ratep = fit1$mle['rate'], rateq = fit2$mle['rate'],

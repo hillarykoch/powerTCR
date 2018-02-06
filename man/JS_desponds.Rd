@@ -35,7 +35,7 @@ APA
 }
 \author{\email{hbk5086@psu.edu}}
 \seealso{
-\code{\link{JS_spliced}}
+\code{\link{JS_spliced}, \link{JS_dist}}
 }
 \examples{
 data("repertoires")

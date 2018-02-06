@@ -158,3 +158,57 @@ clusterPlot <- function(distances, method = c("complete", "ward.D", "ward.D2",
     plot(hclust(as.dist(distances), method = method), sub = "", xlab = "")
 }
 
+JS_dist <- function(fit1, fit2, grid, modelType = "Spliced"){
+    if(!(modelType %in% c("Spliced", "Desponds"))){
+        stop("modelType must be either \"Spliced\" or \"Desponds\".")
+    }
+    
+    if(modelType == "Spliced"){
+        if(!all(c("x", "init", "useq", "nllhuseq", "nllh",
+                  "optim", "mle") %in% names(fit1))){
+            stop("\"fit1\" is not of the correct structure. It must be a model
+                 fit from fdiscgammagpd.")
+        }
+        if(!all(c("x", "init", "useq", "nllhuseq", "nllh",
+                  "optim", "mle") %in% names(fit2))){
+            stop("\"fit2\" is not of the correct structure. It must be a model
+                 fit from fdiscgammagpd.")
+        }
+        shiftp <- fit1$shift
+        shiftq <- fit2$shift
+        phip <- fit1$mle['phi']
+        phiq <- fit2$mle['phi']
+        shapep <- fit1$mle['shape']
+        shapeq <- fit2$mle['shape']
+        ratep <- fit1$mle['rate']
+        rateq <- fit2$mle['rate']
+        threshp <- fit1$mle['thresh']
+        threshq <- fit2$mle['thresh']
+        sigmap <- fit1$mle['sigma']
+        sigmaq <- fit2$mle['sigma']
+        xip <- fit1$mle['xi']
+        xiq <- fit2$mle['xi']
+        
+        out <- JS_spliced(grid, shiftp, shiftq, phip, phiq, shapep, shapeq,
+                          ratep, rateq, threshp, threshq, sigmap, sigmaq,
+                          xip, xiq)
+    } else if(modelType == "Desponds"){
+        if(!all(c("min.KS", "Cmin", "powerlaw.exponent",
+                  "pareto.alpha") == names(fit1))){
+            stop("\"fit1\" is not of the correct structure. It must be a model
+                 fit from fdesponds.")
+        }
+        if(!all(c("min.KS", "Cmin", "powerlaw.exponent",
+                  "pareto.alpha") == names(fit2))){
+            stop("\"fit2\" is not of the correct structure. It must be a model
+                 fit from fdesponds.")
+        }
+        Cminp <- fit1['Cmin']
+        Cminq <- fit2['Cmin']
+        alphap <- fit1['pareto.alpha']
+        alphaq <- fit2['pareto.alpha']
+        out <- JS_desponds(grid, Cminp, Cminq, alphap, alphaq)
+    }
+    out
+}
+

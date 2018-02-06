@@ -1,6 +1,7 @@
-##-----------------------------------------------------------------------------------------------------
-## Fitting function, random number generation, quantile function, density, and distribution functions
-##-----------------------------------------------------------------------------------------------------
+##--------------------------------------------------------------------------
+## Fitting function, random number generation, quantile function, density,
+## and distribution functions
+##--------------------------------------------------------------------------
 
 fdiscgammagpd <- function(x, useq, shift = NULL, pvector=NULL,
                           std.err = TRUE, method = "Nelder-Mead", ...){
@@ -71,7 +72,7 @@ fdiscgammagpd <- function(x, useq, shift = NULL, pvector=NULL,
     gammfit <- list()
     gpdfit <- list()
     nllhu <- rep(NA, length(useq))
-    for(i in 1:length(useq)){
+    for(i in seq_along(useq)){
         gammfit[[i]] <- tryCatch(expr = fdiscgamma(pvector[1:2],x[bulk[[i]]],
                                                    useq[i],
                                                    phiu[[i]],
@@ -114,12 +115,12 @@ fdiscgammagpd <- function(x, useq, shift = NULL, pvector=NULL,
         H <- fit.out$bulk$hessian %>% rbind(matrix(rep(0,4),nrow = 2)) %>%
             cbind(rbind(matrix(rep(0,4),nrow = 2),fit.out$tail$hessian))
         fisherInf <- tryCatch(expr = solve(H), error = function(err) NA)
-        out <- list(x = as.vector(x), init = as.vector(pvector),
+        out <- list(x = as.vector(x), shift = shift, init = as.vector(pvector),
                     useq = useq, nllhuseq = nllhu,
                     optim = fit.out, nllh = nllhu[bestfit],
                     mle=mle, fisherInformation = fisherInf)
     } else{
-        out <- list(x = as.vector(x), init = as.vector(pvector),
+        out <- list(x = as.vector(x), shift = shift, init = as.vector(pvector),
                     useq = useq, nllhuseq = nllhu,
                     optim = fit.out, nllh = nllhu[bestfit],
                     mle=mle)
@@ -128,7 +129,22 @@ fdiscgammagpd <- function(x, useq, shift = NULL, pvector=NULL,
 }
 
 # Need this for rgammagpd
-qdiscgammagpd <- function(p, shape, rate, u, sigma, xi, phiu=NULL, shift = 0){
+qdiscgammagpd <- function(p, fit=NULL, shape, rate, u,
+                          sigma, xi, phiu=NULL, shift = 0){
+    if(!is.null(fit)){
+        if(!all(c("x", "shift", "init", "useq", "nllhuseq", "nllh",
+                 "optim", "mle") %in% names(fit))){
+            stop("\"fit\" is not of the correct structure. It must be one model
+                 fit from fdiscgammagpd.")
+        }
+        phiu <- fit$mle['phi']
+        shape <- fit$mle['shape']
+        rate <- fit$mle['rate']
+        u <- fit$mle['thresh']
+        sigma <- fit$mle['sigma']
+        xi <- fit$mle['xi']
+        shift <- fit$shift
+    }
     if(!is(p, "numeric")){
         stop("p must be numeric.")
     }
@@ -176,7 +192,22 @@ qdiscgammagpd <- function(p, shape, rate, u, sigma, xi, phiu=NULL, shift = 0){
 }
 
 # Generate data from the model!!
-rdiscgammagpd <- function(n, shape, rate, u, sigma, xi, phiu=NULL, shift = 0){
+rdiscgammagpd <- function(n, fit=NULL, shape, rate, u,
+                          sigma, xi, phiu=NULL, shift = 0){
+    if(!is.null(fit)){
+        if(!all(c("x", "shift", "init", "useq", "nllhuseq", "nllh",
+                  "optim", "mle") %in% names(fit))){
+            stop("\"fit\" is not of the correct structure. It must be one model
+                 fit from fdiscgammagpd.")
+        }
+        phiu <- fit$mle['phi']
+        shape <- fit$mle['shape']
+        rate <- fit$mle['rate']
+        u <- fit$mle['thresh']
+        sigma <- fit$mle['sigma']
+        xi <- fit$mle['xi']
+        shift <- fit$shift
+    }
     if(!is(n, "numeric")){
         stop("n must be numeric.")
     }
@@ -208,12 +239,26 @@ rdiscgammagpd <- function(n, shape, rate, u, sigma, xi, phiu=NULL, shift = 0){
                              thresh=Inf, phiu = 0, shift=shift)
     }
     p <- runif(n)
-    qdiscgammagpd(p, shape=shape, rate=rate, u=u,
+    qdiscgammagpd(p, fit=NULL, shape=shape, rate=rate, u=u,
                   sigma=sigma, xi=xi, phiu=phiu, shift=shift)
 }
 
-ddiscgammagpd <- function(x, shape, rate, u, sigma, xi,
+ddiscgammagpd <- function(x, fit=NULL, shape, rate, u, sigma, xi,
                           phiu=NULL, shift = 0, log = FALSE){
+    if(!is.null(fit)){
+        if(!all(c("x", "shift", "init", "useq", "nllhuseq", "nllh",
+                  "optim", "mle") %in% names(fit))){
+            stop("\"fit\" is not of the correct structure. It must be one model
+                 fit from fdiscgammagpd.")
+        }
+        phiu <- fit$mle['phi']
+        shape <- fit$mle['shape']
+        rate <- fit$mle['rate']
+        u <- fit$mle['thresh']
+        sigma <- fit$mle['sigma']
+        xi <- fit$mle['xi']
+        shift <- fit$shift
+    }
     if(!is(x, "numeric")){
         stop("x must be numeric.")
     }
@@ -257,7 +302,22 @@ ddiscgammagpd <- function(x, shape, rate, u, sigma, xi,
     out
 }
 
-pdiscgammagpd <- function(q, shape, rate, u, sigma, xi, phiu=NULL, shift=0){
+pdiscgammagpd <- function(q, fit=NULL, shape, rate, u,
+                          sigma, xi, phiu=NULL, shift=0){
+    if(!is.null(fit)){
+        if(!all(c("x", "shift", "init", "useq", "nllhuseq", "nllh",
+                  "optim", "mle") %in% names(fit))){
+            stop("\"fit\" is not of the correct structure. It must be one model
+                 fit from fdiscgammagpd.")
+        }
+        phiu <- fit$mle['phi']
+        shape <- fit$mle['shape']
+        rate <- fit$mle['rate']
+        u <- fit$mle['thresh']
+        sigma <- fit$mle['sigma']
+        xi <- fit$mle['xi']
+        shift <- fit$shift
+    }
     if(!is(q, "numeric")){
         stop("q must be numeric.")
     }
@@ -284,8 +344,9 @@ pdiscgammagpd <- function(q, shape, rate, u, sigma, xi, phiu=NULL, shift=0){
         }
     }
 
-    probs <- sapply(q, function(q)
-        ddiscgammagpd(0:q, shape, rate, u, sigma, xi, phiu, shift) %>%
-            sum)
+    probs <- vapply(q, function(q)
+        ddiscgammagpd(shift:q, fit = NULL, shape, rate, u, sigma, xi, phiu, shift) %>%
+            sum,
+        numeric(1))
     probs
 }

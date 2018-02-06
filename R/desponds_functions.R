@@ -1,5 +1,5 @@
-# This function does model fitting and threshold selection as described in Desponds et al (2016)
-# Details on page 5 of supplement (right column)
+# This function does model fitting and threshold selection as described in
+# Desponds et al (2016). Details on page 5 of supplement (right column)
 # x is a vector of clone sizes
 
 fdesponds <- function(x){
@@ -13,18 +13,18 @@ fdesponds <- function(x){
     
     x <- sort(x)
     Cmins <- unique(x)
-    alpha <- rep(NA, length(Cmins))
-    KS <- rep(NA, length(Cmins))
+    alpha <- rep(NA, length(Cmins)-1)
+    KS <- rep(NA, length(Cmins)-1)
 
-    n <- rep(NA, length(Cmins))
-    for(i in 1:length(Cmins)){
+    n <- rep(NA, length(Cmins)-1)
+    for(i in seq_along(n)){
         d <- x[x > Cmins[i]]
 
         n[i] <- length(d)
         alpha[i] <- n[i]*(sum(log(d/Cmins[i])))^(-1) + 1
 
         empir.cdf <- rep(NA, length(d))
-        for(j in 1:length(d)){
+        for(j in seq_along(d)){
             empir.cdf[j] <- mean(d <= d[j])
         }
 

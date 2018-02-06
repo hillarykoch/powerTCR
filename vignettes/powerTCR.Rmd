@@ -27,7 +27,7 @@ The powerTCR package allows users to implement the model-based methods discussed
 
 In order to fit a model with powerTCR, you only need to be able to supply a __vector of counts__ (that is, a vector of clone sizes). If your data are in a format supported by $\texttt{parseFile}$ or $\texttt{parseFolder}$, you can simply read in your file using one of those functions, specify whether or not you want to use only in-frame sequences, and powerTCR will automatically give you a sorted vector of clone sizes for each sample. This functionality is a wrapper for parsing functions found in the `r CRANpkg("tcR")` package.
 
-powerTCR contains a toy data set, called $\texttt{repertoires}$, with two TCR repertoire samples, which we will use throughout this vignette. You can load powerTCR and this data set by typing:
+powerTCR contains a toy data set, called $\texttt{repertoires}$, with two TCR repertoire samples, which we will use throughout this vignette. (In practice, you may have any number of samples.) You can load powerTCR and this data set by typing:
 
 ```{r, echo = 4:5, message = FALSE, warning = FALSE}
 # This installs packages from BioConductor
@@ -50,11 +50,11 @@ These samples are smaller than one might expect a TCR repertoire to be in practi
 The main model that powerTCR focuses on is the discrete gamma-GPD spliced threshold model. This distribution has probability mass function
 
 \[
-  	f(x) =
-  	\begin{cases}
-      	(1-\phi)\frac{h(x|\boldsymbol{\theta}_b)} {H(u-1|\boldsymbol{\theta}_b)}  & \text{for $x \leq u-1$} \\
-		\phi g(x|\boldsymbol{\theta}_t, u) & \text{for $x \geq u$}
-  	\end{cases},
+    f(x) =
+    \begin{cases}
+        (1-\phi)\frac{h(x|\boldsymbol{\theta}_b)} {H(u-1|\boldsymbol{\theta}_b)} & \text{for $x \leq u-1$} \\
+        \phi g(x|\boldsymbol{\theta}_t, u) & \text{for $x \geq u$}
+    \end{cases},
 \]
 
 where $h$ and $H$ are the density and distribution function of a gamma distribution, and $g$ is the density of a generalized Pareto distribution, or GPD. The gamma distribution has density
@@ -103,7 +103,17 @@ Each value of the output is described in the $\texttt{fdiscgammagpd}$ help file,
 * nllh: the negative log likelihood of the most likely fit, given the threshold you've checked
 * mle: the maximum likelihood estimates for $\phi, \alpha, \beta, u, \sigma,$ and $\xi$ respectively
 
-You can also view the likelihoods for every other threshold you checked (in nllhuseq) as well as the output from $\texttt{optim}$ for the ''bulk''  (truncated gamma) and ''tail''  (GPD) parts of the distribution.
+These two important items can be grabbed using convenient accessors contained in powerTCR, called $\texttt{get_mle}$ and $\texttt{get_nllh}$.
+
+```{r}
+# Grab mles of fits:
+get_mle(fits)
+
+# Grab negative log likelihoods of fits
+get_nllh(fits)
+```
+
+You can also view the likelihoods for every other threshold you checked (in nllhuseq) as well as the output from $\texttt{optim}$ for the "bulk"  (truncated gamma) and "tail" (GPD) parts of the distribution.
 
 ## The Type-I Pareto model
 
@@ -137,7 +147,7 @@ Here, min.KS is the minimum KS-statistic of all possible fits. Cmin is the thres
 # Density, distribution, and quantile functions, plus simulating data
 powerTCR provides standard functions to compute the density, distribution, and quantile functions of the discrete gamma-GPD threshold model, as well a function to simulate data. These can be very useful for tasks such as visualizing model fit and conducting a simulation study. The functions behave exactly like popularly used functions such as, say, $\texttt{dnorm, pnorm, qnorm,}$ and $\texttt{rnorm}$. In order to use these functions, you need to specify all of the model parameters. The one exception is $\phi$, which can go unspecified -- details about how $\phi$ defaults are in the help file for $\texttt{ddiscgammagpd}$.
 
-Here, we will use $\texttt{qdiscgammagpd}$ to compute quantiles from the two theoretical distributions we fit above.
+Here, we will use $\texttt{qdiscgammagpd}$ to compute quantiles from the two theoretical distributions we fit above. Note that we pass $\texttt{qdiscgammagpd}$ the quantiles and the fits we obtained. This is just something convenient powerTCR can do if you don't want to manually specify shift, shape, rate, u, sigma, xi, and phi. You don't have to pass a fit, however, as you will see when we simulate data.
 
 ```{r}
 # The number of clones in each sample
@@ -150,14 +160,8 @@ q1 <- seq(n1/(n1+1), 1/(n1+1), length.out = n1)
 q2 <- seq(n2/(n2+1), 1/(n2+1), length.out = n2)
 
 # Compute the value of fitted distributions at grid of quantiles
-theor1 <- qdiscgammagpd(q1, fits[[1]]$mle['shape'], fits[[1]]$mle['rate'],
-                        fits[[1]]$mle['thresh'], fits[[1]]$mle['sigma'],
-                        fits[[1]]$mle['xi'], fits[[1]]$mle['phi'],
-                        min(fits[[1]]$x))
-theor2 <- qdiscgammagpd(q2, fits[[2]]$mle['shape'], fits[[2]]$mle['rate'],
-                        fits[[2]]$mle['thresh'], fits[[2]]$mle['sigma'],
-                        fits[[2]]$mle['xi'], fits[[2]]$mle['phi'],
-                        min(fits[[2]]$x))
+theor1 <- qdiscgammagpd(q1, fits[[1]])
+theor2 <- qdiscgammagpd(q2, fits[[2]])
 ```
 
 Now, let's visualize the fitted and empirical distributions by plotting them together. Here, the black represents the original data, with the quantiles of the theoretical distributions plotted on top in color.
@@ -201,9 +205,9 @@ Fun, but not too realistic for a clone size distribution. There are several ways
 
 # Doing comparative analysis
 
-Following the work in __my paper__, powerTCR provides the tools needed to perform hierarchical clustering of TCR repertoire samples according to their Jensen-Shannon divergence. We can test this out on the 3 TCR repertoires we just simulated. First, we need to fit a model to them. For computational efficiency, let's just supply the true thresholds. Then, we can use $\texttt{JS_spliced}$ to compute the Jensen-Shannon divergence between each pair of theoretical distributions corresponding to each of the TCR samples.
+Following the work in __my paper__, powerTCR provides the tools needed to perform hierarchical clustering of TCR repertoire samples according to their Jensen-Shannon divergence. We can test this out on the 3 TCR repertoires we just simulated. First, we need to fit a model to them. For computational efficiency, let's just supply the true thresholds. Then, we can use $\texttt{JS_dist}$ to compute the Jensen-Shannon divergence between each pair of theoretical distributions corresponding to each of the TCR samples.
 
-$\texttt{JS_spliced}$ needs to be supplied the fitted model parameters as well as a grid. The grid is important: it is the range over which each distribution gets evaluated. If you are comparing a group of TCR repertoires, the minimum value of your grid should be the smallest clone size across all samples. The upper bound of the grid should be something very large, say 100,000 or more. If you don't select a value large enough, you will not be examining the tail of your fitted distributions sufficiently, and the tail is important! The grid should also contain every integer between its minimum and maximum. For computational efficiency, here the upper bound on our grid is only 10,000.
+$\texttt{JS_dist}$ needs to be supplied two model fits from $\texttt{fdiscgammagpd}$ as well as a grid. The grid is important: it is the range over which each distribution gets evaluated. If you are comparing a group of TCR repertoires, the minimum value of your grid should be the smallest clone size across all samples. The upper bound of the grid should be something very large, say 100,000 or more. If you don't select a value large enough, you will not be examining the tail of your fitted distributions sufficiently, and the tail is important! The grid should also contain every integer between its minimum and maximum. For computational efficiency, here the upper bound on our grid is only 10,000.
 
 ```{r, cache=TRUE}
 # Fit model to the data at the true thresholds
@@ -218,21 +222,8 @@ colnames(distances) <- rownames(distances) <- c("s1","s2","s3")
 grid <- min(c(s1,s2,s3)):10000
 for(i in 1:(length(sim_fits)-1)){
     for(j in (i+1):length(sim_fits)){
-        distances[i,j] <- JS_spliced(grid,
-                                     shiftp = min(sim_fits[[i]]$x),
-                                     shiftq = min(sim_fits[[j]]$x),
-                                     phip = sim_fits[[i]]$mle['phi'],
-                                     phiq = sim_fits[[j]]$mle['phi'],
-                                     shapep = sim_fits[[i]]$mle['shape'],
-                                     shapeq = sim_fits[[j]]$mle['shape'],
-                                     ratep = sim_fits[[i]]$mle['rate'],
-                                     rateq = sim_fits[[j]]$mle['rate'],
-                                     threshp = sim_fits[[i]]$mle['thresh'],
-                                     threshq = sim_fits[[j]]$mle['thresh'],
-                                     sigmap = sim_fits[[i]]$mle['sigma'],
-                                     sigmaq = sim_fits[[j]]$mle['sigma'],
-                                     xip = sim_fits[[i]]$mle['xi'],
-                                     xiq = sim_fits[[j]]$mle['xi'])
+        distances[i,j] <- JS_dist(sim_fits[[i]], sim_fits[[j]],
+                                  grid, modelType = "Spliced")
     }
 }
 
@@ -245,9 +236,9 @@ Let's have a look at the distance matrix we just computed:
 distances
 ```
 
-Note that, similarly, the function $\texttt{JS_desponds}$ can be used to compute the Jensen-Shannon divergence between samples if they were fit using $\texttt{fdesponds}$ rather than $\texttt{fdiscgammagpd}$.
+Note that $\texttt{JS_dist}$ is simply a wrapper for two functions called $\texttt{JS_spliced}$ and $\texttt{JS_desponds}$. If you want to do comparative analysis for data fit using $\texttt{fdesponds}$, then the argument "modelType" must be changed to "Desponds".
 
-We can use this distance matrix to perform hierarchical clustering. This is done easily with the $\texttt{clusterPlot}$ function. $\texttt{clusterPlot}$ is just a wrapper for $\texttt{hclust}$, and takes a matrix of Jensen-Shannon distances like the one we just made, plus a type of linkage. All possible types of linkage are listed in the help file, but we recommend using complete linkage.
+We can use this distance matrix to perform hierarchical clustering. This is done easily with the $\texttt{clusterPlot}$ function. $\texttt{clusterPlot}$ is just a wrapper for $\texttt{hclust}$ in R's $\texttt{stats}$ package, and takes a matrix of Jensen-Shannon distances like the one we just made, plus a type of linkage. All possible types of linkage are listed in the help file, but we recommend using complete linkage.
 
 ```{r, fig.small=TRUE}
 clusterPlot(distances, method = "complete")
