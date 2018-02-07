@@ -30,5 +30,4 @@ parseFolder(folder, format = c('mitcr', 'mitcrbc', 'migec', 'vdjtools',
 }
 \references{
 Nazarov, Vadim I., et al. "tcR: an R package for T cell receptor repertoire advanced data analysis." BMC bioinformatics 16.1 (2015): 175.
-APA
 }

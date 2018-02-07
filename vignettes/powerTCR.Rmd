@@ -245,3 +245,9 @@ clusterPlot(distances, method = "complete")
 ```
 
 The clustering result is exactly what we might expect. Indeed, we simulated s1 and s2 using very similar parameter settings, so we should expect them to be more closely related to each other than to s3. That is exactly what the dendrogram displays.
+
+# References
+
+Desponds, J., Mora, T., & Walczak, A. M. (2016). Fluctuating fitness shapes the clone-size distribution of immune repertoires. Proceedings of the National Academy of Sciences, 113(2), 274-279.
+Chicago	
+
