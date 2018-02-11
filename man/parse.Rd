@@ -28,6 +28,12 @@ parseFolder(folder, format = c('mitcr', 'mitcrbc', 'migec', 'vdjtools',
 
 \code{parseFile} returns a vector of counts corresponding to the sample repertoire.
 }
+\examples{
+file <- system.file("extdata", "GSM2679761_989_BAL_a_output.txt.gz", package = "powerTCR")
+dat <- parseFile(file, format = "mitcr")
+}
 \references{
 Nazarov, Vadim I., et al. "tcR: an R package for T cell receptor repertoire advanced data analysis." BMC bioinformatics 16.1 (2015): 175.
+
+Mitchell, A. M., Kaiser, Y., Falta, M. T., Munson, D. J., Landry, L. G., Eklund, A., ... & Fontenot, A. P. (2017). Shared αβ TCR Usage in Lungs of Sarcoidosis Patients with Löfgren’s Syndrome. The Journal of Immunology, 199(7), 2279-2290.
 }
