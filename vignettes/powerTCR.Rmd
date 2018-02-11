@@ -101,7 +101,9 @@ fits$samp1
 Each value of the output is described in the $\texttt{fdiscgammagpd}$ help file, but the most important are
 
 * nllh: the negative log likelihood of the most likely fit, given the thresholds you've checked
-* mle: the maximum likelihood estimates for $\phi, \alpha, \beta, u, \sigma,$ and $\xi$ respectively
+* mle: the maximum likelihood estimates for:
+
+\[\phi, \alpha, \beta, u, \sigma,\text{ and } \xi\text{ respectively}\]
 
 These two important items can be grabbed using convenient accessors contained in powerTCR, called $\texttt{get_mle}$ and $\texttt{get_nllh}$.
 
