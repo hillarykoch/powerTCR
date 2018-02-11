@@ -100,7 +100,7 @@ fits$samp1
 
 Each value of the output is described in the $\texttt{fdiscgammagpd}$ help file, but the most important are
 
-* nllh: the negative log likelihood of the most likely fit, given the threshold you've checked
+* nllh: the negative log likelihood of the most likely fit, given the thresholds you've checked
 * mle: the maximum likelihood estimates for $\phi, \alpha, \beta, u, \sigma,$ and $\xi$ respectively
 
 These two important items can be grabbed using convenient accessors contained in powerTCR, called $\texttt{get_mle}$ and $\texttt{get_nllh}$.
@@ -197,7 +197,7 @@ __NB:__ it is possible to simulate data according to a distribution that is tota
 ```{r}
 bad <- rdiscgammagpd(1000, shape = 1, rate = 2, u = 25, sigma = 10,
                      xi = .5, shift = 1, phi = .2)
-plot(log(sort(bad, decreasing = TRUE)), log (1:1000), pch = 16,
+plot(log(sort(bad, decreasing = TRUE)), log(1:1000), pch = 16,
      xlab = "log clone size", ylab = "log rank", main = "bad simulation")
 ```
 
