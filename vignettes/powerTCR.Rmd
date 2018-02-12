@@ -80,7 +80,7 @@ Let's try fitting the model to the data in $\texttt{repertoires}$.
 # This will loop through our list of sample repertoires,
 # and store a fit in each
 fits <- list()
-for(i in 1:length(repertoires)){
+for(i in seq_along(repertoires)){
     # Choose a sequence of possible u for your model fit
     # Ideally, you want to search a lot of thresholds, but for quick
     # computation, we are only going to test 4
@@ -137,7 +137,7 @@ Let's fit this model to the $\texttt{repertoires}$ data, and have a look at the 
 
 ```{r, cache=T}
 desponds_fits <- list()
-for(i in 1:length(repertoires)){
+for(i in seq_along(repertoires)){
     desponds_fits[[i]] <- fdesponds(repertoires[[i]])
 }
 names(desponds_fits) <- names(repertoires)
@@ -170,13 +170,13 @@ Now, let's visualize the fitted and empirical distributions by plotting them tog
 
 ```{r, fig.wide=TRUE, echo=2:7}
 par(mfrow = c(1,2))
-plot(log(repertoires[[1]]), log(1:n1), pch = 16, cex = 2,
+plot(log(repertoires[[1]]), log(seq_len(n1)), pch = 16, cex = 2,
      xlab = "log clone size", ylab = "log rank", main = "samp1")
-points(log(theor1), log(1:n1), pch = 'x', col = "darkcyan")
+points(log(theor1), log(seq_len(n1)), pch = 'x', col = "darkcyan")
 
-plot(log(repertoires[[2]]), log(1:n2), pch = 16, cex = 2,
+plot(log(repertoires[[2]]), log(seq_len(n2)), pch = 16, cex = 2,
      xlab = "log clone size", ylab = "log rank", main = "samp2")
-points(log(theor2), log(1:n2), pch = 'x', col = "chocolate")
+points(log(theor2), log(seq_len(n2)), pch = 'x', col = "chocolate")
 ```
 
 The fits look pretty good!
@@ -199,7 +199,7 @@ __NB:__ it is possible to simulate data according to a distribution that is tota
 ```{r}
 bad <- rdiscgammagpd(1000, shape = 1, rate = 2, u = 25, sigma = 10,
                      xi = .5, shift = 1, phi = .2)
-plot(log(sort(bad, decreasing = TRUE)), log(1:1000), pch = 16,
+plot(log(sort(bad, decreasing = TRUE)), log(seq_len(1000)), pch = 16,
      xlab = "log clone size", ylab = "log rank", main = "bad simulation")
 ```
 
@@ -222,7 +222,7 @@ distances <- matrix(rep(0, length(sim_fits)^2), nrow = length(sim_fits))
 colnames(distances) <- rownames(distances) <- c("s1","s2","s3")
 
 grid <- min(c(s1,s2,s3)):10000
-for(i in 1:(length(sim_fits)-1)){
+for(i in seq_len((length(sim_fits)-1))){
     for(j in (i+1):length(sim_fits)){
         distances[i,j] <- JS_dist(sim_fits[[i]], sim_fits[[j]],
                                   grid, modelType = "Spliced")
@@ -240,10 +240,10 @@ distances
 
 Note that $\texttt{JS_dist}$ is simply a wrapper for two functions called $\texttt{JS_spliced}$ and $\texttt{JS_desponds}$. If you want to do comparative analysis for data fit using $\texttt{fdesponds}$, then the argument "modelType" must be changed to "Desponds".
 
-We can use this distance matrix to perform hierarchical clustering. This is done easily with the $\texttt{clusterPlot}$ function. $\texttt{clusterPlot}$ is just a wrapper for $\texttt{hclust}$ in R's $\texttt{stats}$ package, and takes a matrix of Jensen-Shannon distances like the one we just made, plus a type of linkage. All possible types of linkage are listed in the help file, but we recommend using complete linkage.
+We can use this distance matrix to perform hierarchical clustering. This is done easily with the $\texttt{clusterPlot}$ function. $\texttt{clusterPlot}$ is just a wrapper for $\texttt{hclust}$ in R's $\texttt{stats}$ package, and takes a matrix of Jensen-Shannon distances like the one we just made, plus a type of linkage. All possible types of linkage are listed in the help file, but we recommend using Ward's method or complete linkage.
 
 ```{r, fig.small=TRUE}
-clusterPlot(distances, method = "complete")
+clusterPlot(distances, method = "ward.D")
 ```
 
 The clustering result is exactly what we might expect. Indeed, we simulated s1 and s2 using very similar parameter settings, so we should expect them to be more closely related to each other than to s3. That is exactly what the dendrogram displays.
