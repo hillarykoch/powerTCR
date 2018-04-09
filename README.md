@@ -28,6 +28,7 @@ See the [package vignette](/vignettes/powerTCR.Rmd) for a detailed walkthrough o
 Paper yet to appear.
 
 See our [preprint on bioRvix:](https://www.biorxiv.org/content/early/2018/04/07/297119)
+
 Hillary Koch, Dmytro Starenki, Sara J Cooper, Richard M Myers, Qunhua Li
 bioRxiv 297119; doi: https://doi.org/10.1101/297119
 
