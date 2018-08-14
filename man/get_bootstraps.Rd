@@ -33,8 +33,8 @@ names(fits) <- names(repertoires)
 boot <- get_bootstraps(fits, resamples = 10)
 
 mles <- get_mle(boot[[1]])
-xi_CI <- map(mles, 'xi') %>% 
-    unlist %>%
+xi_CI <- map(mles, 'xi') \%>\% 
+    unlist \%>\%
     quantile(c(.025,.5,.975))
 xi_CI
 }
