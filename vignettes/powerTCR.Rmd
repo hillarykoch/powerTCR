@@ -25,9 +25,9 @@ The powerTCR package allows users to implement the model-based methods discussed
 
 # Fitting a model
 
-In order to fit a model with powerTCR, you only need to be able to supply a __vector of counts__ (that is, a vector of clone sizes). If your data are in a format supported by $\texttt{parseFile}$ or $\texttt{parseFolder}$, you can simply read in your file using one of those functions, specify whether or not you want to use only in-frame sequences, and powerTCR will automatically give you a sorted vector of clone sizes for each sample. This functionality is a wrapper for parsing functions found in the `r CRANpkg("tcR")` package.
+In order to fit a model with powerTCR, you only need to be able to supply a __vector of counts__ (that is, a vector of clone sizes). If your data are in a format supported by `parseFile` or `parseFolder`, you can simply read in your file using one of those functions, specify whether or not you want to use only in-frame sequences, and powerTCR will automatically give you a sorted vector of clone sizes for each sample. This functionality is a wrapper for parsing functions found in the `r CRANpkg("tcR")` package.
 
-powerTCR contains a toy data set, called $\texttt{repertoires}$, with two TCR repertoire samples, which we will use throughout this vignette. (In practice, you may have any number of samples.) You can load powerTCR and this data set by typing:
+powerTCR contains a toy data set, called `repertoires`, with two TCR repertoire samples, which we will use throughout this vignette. (In practice, you may have any number of samples.) You can load powerTCR and this data set by typing:
 
 ```{r, echo = 4:5, message = FALSE, warning = FALSE}
 # This installs packages from BioConductor
@@ -37,7 +37,7 @@ library(powerTCR)
 data("repertoires")
 ```
 
-$\texttt{repertoires}$ is a list with 2 elements in it, each corresponding to a sample repertoire. Have a look:
+`repertoires` is a list with 2 elements in it, each corresponding to a sample repertoire. Have a look:
 
 ```{r}
 str(repertoires)
@@ -69,11 +69,11 @@ and the GPD has density
     g(x) = \frac{1}{\sigma}\big(1+\xi \frac{x-u}{\sigma}\big)^{-(1/\xi +1)}.
 \]
 
-We can fit the model to each of the samples in $\texttt{repertoires}$ using the function $\texttt{fdiscgammagpd}$. This function takes a few arguments. The most important are as follows:
+We can fit the model to each of the samples in `repertoires` using the function `fdiscgammagpd`. This function takes a few arguments. The most important are as follows:
 
-First, $\texttt{fdiscgammagpd}$ needs to be passed a sample TCR repertoire as a vector of counts. Second, you need to specify a grid of possible thresholds (that is, the parameter $u$) that you are interested in considering. One easy way to do this might be to specify a series of quantiles of the vector of counts. Finally, you also need to specify the shift, which for each sample is ideally the smallest count (at least for TCR repertoire samples). The shift is the minimum value in the support of the distribution, and for clone sizes, should never be smaller than 1.
+First, `fdiscgammagpd` needs to be passed a sample TCR repertoire as a vector of counts. Second, you need to specify a grid of possible thresholds (that is, the parameter $u$) that you are interested in considering. One easy way to do this might be to specify a series of quantiles of the vector of counts. Finally, you also need to specify the shift, which for each sample is ideally the smallest count (at least for TCR repertoire samples). The shift is the minimum value in the support of the distribution, and for clone sizes, should never be smaller than 1.
 
-Let's try fitting the model to the data in $\texttt{repertoires}$.
+Let's try fitting the model to the data in `repertoires`.
 
 
 ```{r, warning = FALSE, cache=TRUE}
@@ -98,14 +98,14 @@ The output for a fit looks like this:
 fits$samp1
 ```
 
-Each value of the output is described in the $\texttt{fdiscgammagpd}$ help file, but the most important are
+Each value of the output is described in the `fdiscgammagpd` help file, but the most important are
 
 * nllh: the negative log likelihood of the most likely fit, given the thresholds you've checked
 * mle: the maximum likelihood estimates for:
 
 \[\phi, \alpha, \beta, u, \sigma,\text{ and } \xi\text{ respectively}\]
 
-These two important items can be grabbed using convenient accessors contained in powerTCR, called $\texttt{get_mle}$ and $\texttt{get_nllh}$.
+These two important items can be grabbed using convenient accessors contained in powerTCR, called `get_mle` and `get_nllh`.
 
 ```{r}
 # Grab mles of fits:
@@ -115,7 +115,7 @@ get_mle(fits)
 get_nllh(fits)
 ```
 
-You can also view the likelihoods for every other threshold you checked (in nllhuseq) as well as the output from $\texttt{optim}$ for the "bulk"  (truncated gamma) and "tail" (GPD) parts of the distribution.
+You can also view the likelihoods for every other threshold you checked (in nllhuseq) as well as the output from `optim` for the "bulk"  (truncated gamma) and "tail" (GPD) parts of the distribution.
 
 ## The Type-I Pareto model
 
@@ -133,7 +133,7 @@ For a given threshold $u$, the estimate for parameter $\alpha$ is computed direc
 
 where $n$ is the number of clones with size larger than $u$. This value is computed for every possible threshold $u$, and then the parameters that minimize the KS-statistic between empirical and theoretical distributions are chosen.
 
-Let's fit this model to the $\texttt{repertoires}$ data, and have a look at the output for the first sample.
+Let's fit this model to the `repertoires` data, and have a look at the output for the first sample.
 
 ```{r, cache=T}
 desponds_fits <- list()
@@ -147,9 +147,9 @@ desponds_fits$samp1
 Here, min.KS is the minimum KS-statistic of all possible fits. Cmin is the threshold $u$ that corresponds to the best fit. powerlaw.exponent and pareto.alpha are effectively the same -- pareto.alpha = powerlaw.exponent-1. This is just user preference; for the Pareto density given above, pareto.alpha corresponds to the $\alpha$ shown there. However, if the user is more familiar with a "power law" distribution, then powerlaw.exponent is the parameter they should look at.
 
 # Density, distribution, and quantile functions, plus simulating data
-powerTCR provides standard functions to compute the density, distribution, and quantile functions of the discrete gamma-GPD threshold model, as well a function to simulate data. These can be very useful for tasks such as visualizing model fit and conducting a simulation study. The functions behave exactly like popularly used functions such as, say, $\texttt{dnorm, pnorm, qnorm,}$ and $\texttt{rnorm}$. In order to use these functions, you need to specify all of the model parameters. The one exception is $\phi$, which can go unspecified -- details about how $\phi$ defaults are in the help file for $\texttt{ddiscgammagpd}$.
+powerTCR provides standard functions to compute the density, distribution, and quantile functions of the discrete gamma-GPD threshold model, as well a function to simulate data. These can be very useful for tasks such as visualizing model fit and conducting a simulation study. The functions behave exactly like popularly used functions such as, say, `dnorm, pnorm, qnorm`, and `rnorm`. In order to use these functions, you need to specify all of the model parameters. The one exception is $\phi$, which can go unspecified -- details about how $\phi$ defaults are in the help file for `ddiscgammagpd`.
 
-Here, we will use $\texttt{qdiscgammagpd}$ to compute quantiles from the two theoretical distributions we fit above. Note that we pass $\texttt{qdiscgammagpd}$ the quantiles and the fits we obtained. This is just something convenient powerTCR can do if you don't want to manually specify shift, shape, rate, u, sigma, xi, and phi. You don't have to pass a fit, however, as you will see when we simulate data.
+Here, we will use `qdiscgammagpd` to compute quantiles from the two theoretical distributions we fit above. Note that we pass `qdiscgammagpd` the quantiles and the fits we obtained. This is just something convenient powerTCR can do if you don't want to manually specify shift, shape, rate, u, sigma, xi, and phi. You don't have to pass a fit, however, as you will see when we simulate data.
 
 ```{r}
 # The number of clones in each sample
@@ -207,30 +207,21 @@ Fun, but not too realistic for a clone size distribution. There are several ways
 
 # Doing comparative analysis
 
-Following the work in __our paper (pending)__, powerTCR provides the tools needed to perform hierarchical clustering of TCR repertoire samples according to their Jensen-Shannon divergence. We can test this out on the 3 TCR repertoires we just simulated. First, we need to fit a model to them. For computational efficiency, let's just supply the true thresholds. Then, we can use $\texttt{JS_dist}$ to compute the Jensen-Shannon divergence between each pair of theoretical distributions corresponding to each of the TCR samples.
+Following the work in __our paper (pending)__, powerTCR provides the tools needed to perform hierarchical clustering of TCR repertoire samples according to their Jensen-Shannon distance. We can test this out on the 3 TCR repertoires we just simulated. First, we need to fit a model to them. For computational efficiency, let's just supply the true thresholds. Then, we can use `JS_dist` to compute the Jensen-Shannon divergence between each pair of theoretical distributions corresponding to each of the TCR samples.
 
-$\texttt{JS_dist}$ needs to be supplied two model fits from $\texttt{fdiscgammagpd}$ as well as a grid. The grid is important: it is the range over which each distribution gets evaluated. If you are comparing a group of TCR repertoires, the minimum value of your grid should be the smallest clone size across all samples. The upper bound of the grid should be something very large, say 100,000 or more. If you don't select a value large enough, you will not be examining the tail of your fitted distributions sufficiently, and the tail is important! The grid should also contain every integer between its minimum and maximum. For computational efficiency, here the upper bound on our grid is only 10,000.
+`JS_dist` needs to be supplied two model fits from `fdiscgammagpd` as well as a grid. The grid is important: it is the range over which each distribution gets evaluated. If you are comparing a group of TCR repertoires, the minimum value of your grid should be the smallest clone size across all samples. The upper bound of the grid should be something very large, say 100,000 or more. If you don't select a value large enough, you will not be examining the tail of your fitted distributions sufficiently, and the tail is important! The grid should also contain every integer between its minimum and maximum. For computational efficiency, here the upper bound on our grid is only 10,000.
+
+We've wrapped `JS_dist` up into a convenient function `get_distances`, which will create a symmetric matrix of distances (with 0 on the diagonal) for your use.
 
 ```{r, cache=TRUE}
 # Fit model to the data at the true thresholds
-sim_fits <- list("fit1" = fdiscgammagpd(s1, useq = 25),
-                 "fit2" = fdiscgammagpd(s2, useq = 26),
-                 "fit3" = fdiscgammagpd(s3, useq = 45))
+sim_fits <- list("s1" = fdiscgammagpd(s1, useq = 25),
+                 "s2" = fdiscgammagpd(s2, useq = 26),
+                 "s3" = fdiscgammagpd(s3, useq = 45))
 
 # Compute the pairwise JS distance between 3 fitted models
-distances <- matrix(rep(0, length(sim_fits)^2), nrow = length(sim_fits))
-colnames(distances) <- rownames(distances) <- c("s1","s2","s3")
-
 grid <- min(c(s1,s2,s3)):10000
-for(i in seq_len((length(sim_fits)-1))){
-    for(j in (i+1):length(sim_fits)){
-        distances[i,j] <- JS_dist(sim_fits[[i]], sim_fits[[j]],
-                                  grid, modelType = "Spliced")
-    }
-}
-
-# Distances are symmetric
-distances <- distances + t(distances)
+distances <- get_distances(sim_fits, grid, modelType="Spliced")
 ```
 
 Let's have a look at the distance matrix we just computed:
@@ -238,15 +229,38 @@ Let's have a look at the distance matrix we just computed:
 distances
 ```
 
-Note that $\texttt{JS_dist}$ is simply a wrapper for two functions called $\texttt{JS_spliced}$ and $\texttt{JS_desponds}$. If you want to do comparative analysis for data fit using $\texttt{fdesponds}$, then the argument "modelType" must be changed to "Desponds".
+Note that `get_distances` is just calling `JS_dist` for every pair, and `JS_dist` is simply a wrapper for two functions called `JS_spliced` and `JS_desponds`. If you want to do comparative analysis for data fit using `fdesponds`, then the argument "modelType" must be changed to "Desponds".
 
-We can use this distance matrix to perform hierarchical clustering. This is done easily with the $\texttt{clusterPlot}$ function. $\texttt{clusterPlot}$ is just a wrapper for $\texttt{hclust}$ in R's $\texttt{stats}$ package, and takes a matrix of Jensen-Shannon distances like the one we just made, plus a type of linkage. All possible types of linkage are listed in the help file, but we recommend using Ward's method or complete linkage.
+We can use this distance matrix to perform hierarchical clustering. This is done easily with the `clusterPlot` function. `clusterPlot` is just a wrapper for `hclust` in R's `stats` package, and takes a matrix of Jensen-Shannon distances like the one we just made, plus a type of linkage. All possible types of linkage are listed in the help file, but we recommend using Ward's method or complete linkage.
 
 ```{r, fig.small=TRUE}
 clusterPlot(distances, method = "ward.D")
 ```
 
 The clustering result is exactly what we might expect. Indeed, we simulated s1 and s2 using very similar parameter settings, so we should expect them to be more closely related to each other than to s3. That is exactly what the dendrogram displays.
+
+# Bootstrapping model fits
+
+Finally, powerTCR allows you to run a parametric bootstrapping procedure, and can be executed in parallel if the processors are available to you. Just supply the fits you'd like to bootstrap and the number of resamples you'd like to do (and the number of cores you want to use, if running in parallel). If you want to speed up the bootstrapping by choosing a reduced number of thresholds, you can do so by changing `gridStyle`. Setting `gridStyle` to the default "copy" will just copy the original `useq` parameter in the fit. More details are in the package documentation. For each fit being bootstrapped, this returns a list of fits of length `resamples`. So, for example, if you are bootstrapping 5 fits with 1,000 resamples each, the function will return a list of length 5. Each of those lists will be length 1,000.
+
+Here, we set the number of resamples to something very small to save computational time, but we recommend 1,000 resamples to get reasonable confidence bands.
+
+```{r}
+boot <- get_bootstraps(fits, resamples = 5, cores = 1, gridStyle = "copy")
+```
+
+Finally, you can get confidence intervals based on your resampling. For example, this is how you can get the 95% confidence interval around the estimate for $\xi$ from the first fit.
+```{r, echo = 3:5, message = FALSE, warning = FALSE, cache = TRUE}
+library(magrittr)
+library(purrr)
+mles <- get_mle(boot[[1]])
+xi_CI <- map(mles, 'xi') %>% 
+    unlist %>%
+    quantile(c(.025,.5,.975))
+xi_CI
+```
+
+
 
 # References
 

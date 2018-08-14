@@ -1,3 +1,5 @@
 base
 BiocStyle
 powerTCR
+magrittr
+purrr
