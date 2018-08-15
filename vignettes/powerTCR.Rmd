@@ -239,9 +239,18 @@ clusterPlot(distances, method = "ward.D")
 
 The clustering result is exactly what we might expect. Indeed, we simulated s1 and s2 using very similar parameter settings, so we should expect them to be more closely related to each other than to s3. That is exactly what the dendrogram displays.
 
+# Extracting diversity estimators
+
+In __our paper (pending)__, we introduced new measures of diversity, alongise comparisons to often-used estimators of sample diversity borrowed from ecology literature. Providing a list of model fits, powerTCR can easily compute for you sample richness, Shannon entropy, clonality, and our introduced measure -- the proportion of highly stimulated clones. This is done with the function `get_diversity`. Let's demonstrate this on our fits from simulated data:
+
+```{r, echo=2:3, message = FALSE, warning = FALSE}
+library(vegan)
+get_diversity(sim_fits)
+```
+
 # Bootstrapping model fits
 
-Finally, powerTCR allows you to run a parametric bootstrapping procedure, and can be executed in parallel if the processors are available to you. Just supply the fits you'd like to bootstrap and the number of resamples you'd like to do (and the number of cores you want to use, if running in parallel). If you want to speed up the bootstrapping by choosing a reduced number of thresholds, you can do so by changing `gridStyle`. Setting `gridStyle` to the default "copy" will just copy the original `useq` parameter in the fit. More details are in the package documentation. For each fit being bootstrapped, this returns a list of fits of length `resamples`. So, for example, if you are bootstrapping 5 fits with 1,000 resamples each, the function will return a list of length 5. Each of those lists will be length 1,000.
+Finally, powerTCR allows you to run a parametric bootstrapping procedure on the discrete Gamma-GPD spliced threshold model, and can be executed in parallel if the processors are available to you. Just supply the fits you'd like to bootstrap and the number of resamples you'd like to do (and the number of cores you want to use, if running in parallel). If you want to speed up the bootstrapping by choosing a reduced number of thresholds, you can do so by changing `gridStyle`. Setting `gridStyle` to the default "copy" will just copy the original `useq` parameter in the fit. More details are in the package documentation. For each fit being bootstrapped, this returns a list of fits of length `resamples`. So, for example, if you are bootstrapping 5 fits with 1,000 resamples each, the function will return a list of length 5. Each of those lists will be length 1,000.
 
 Here, we set the number of resamples to something very small to save computational time, but we recommend 1,000 resamples to get reasonable confidence bands.
 

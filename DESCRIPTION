@@ -21,6 +21,7 @@ Imports:
     stats,
     tcR,
     truncdist,
+    vegan,
     VGAM
 Suggests: BiocStyle, knitr, rmarkdown, RUnit, BiocGenerics
 VignetteBuilder: knitr

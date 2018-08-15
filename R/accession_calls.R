@@ -44,8 +44,8 @@ get_bootstraps <- function(fits,
     if(!all(is.numeric(c(cores, resamples)))){
         stop("cores and resamples must be integers.")
     }
-    
-    
+
+
     if(all(c("x", "shift", "init", "useq", "nllhuseq", "nllh",
              "optim", "mle") %in% names(fits))){
 
@@ -73,13 +73,13 @@ get_bootstraps <- function(fits,
         } else{
             stop("gridStyle must be either \"copy\" or a positive integer")
         }
-        
+
         bootstraps <- list()
         if(cores > 1){
             cluster <- makeCluster(cores)
             registerDoParallel(cluster)
             clusterEvalQ(cluster, library(powerTCR))
-            
+
             bootstraps <- foreach(j = 1:resamples,
                                   .packages = "foreach") %dopar% {
                 out <- fdiscgammagpd(resample1[,j],
@@ -108,7 +108,7 @@ get_bootstraps <- function(fits,
             stop("One or more elements of \"fits\" is not a model fit
                  from fdiscgammagpd.")
         }
-        
+
         bootstraps <- list()
         for(i in seq_along(fits)){
             t1 <- sum(fits[[i]]$x >= fits[[i]]$mle['thresh'])
@@ -120,7 +120,7 @@ get_bootstraps <- function(fits,
             resamp.b1 <- sample(fits[[i]]$x[fits[[i]]$x <
                                                 fits[[i]]$mle['thresh']],
                                 b1*resamples, replace = T)
-            
+
             resample1 <- matrix(rep(NA, length(fits[[i]]$x)*resamples),
                                 ncol = resamples)
             resample1[1:t1,] <- resamp.t1
@@ -138,12 +138,12 @@ get_bootstraps <- function(fits,
             } else{
                 stop("gridStyle must be either \"copy\" or a positive integer")
             }
-            
+
             if(cores > 1){
                 cluster <- makeCluster(cores)
                 registerDoParallel(cluster)
                 clusterEvalQ(cluster, library(powerTCR))
-                
+
                 bootstraps[[i]] <- foreach(j = 1:resamples,
                                       .packages = "foreach") %dopar% {
                                           out <-
@@ -182,12 +182,12 @@ get_distances <- function(fits, grid, modelType = "Spliced"){
     if(!(modelType %in% c("Spliced", "Desponds"))){
         stop("modelType must be either \"Spliced\" or \"Desponds\".")
     }
-    
+
     distances <- matrix(rep(0, length(fits)^2), nrow = length(fits))
     if(!is.null(names(fits))){
         rownames(distances) <- colnames(distances) <- names(fits)
     }
-    
+
     for(i in seq_len((length(fits)-1))){
         for(j in (i+1):length(fits)){
             distances[i,j] <- JS_dist(fits[[i]],
@@ -199,3 +199,13 @@ get_distances <- function(fits, grid, modelType = "Spliced"){
     distances <- distances + t(distances)
     distances
 }
+
+get_diversity <- function(fits){
+    rich <- sapply(fits, function(X) specnumber(X$x))
+    shannon <- sapply(fits, function(X) diversity(X$x, index = "shannon"))
+    clon <- sapply(fits, function(X) 1-vegan::diversity(X$x)/log(vegan::specnumber(X$x)))
+    tailprop <- sapply(fits, function(X) sum(X$x[X$x >= X$mle['thresh']])/sum(X$x))
+
+    data.frame("richness" = rich, "shannon" = shannon, "clonality" = clon, "prop_stim" = tailprop)
+}
+

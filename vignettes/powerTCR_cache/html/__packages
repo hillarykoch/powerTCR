@@ -3,3 +3,6 @@ BiocStyle
 powerTCR
 magrittr
 purrr
+permute
+lattice
+vegan
