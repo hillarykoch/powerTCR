@@ -31,8 +31,9 @@ powerTCR contains a toy data set, called `repertoires`, with two TCR repertoire 
 
 ```{r, echo = 4:5, message = FALSE, warning = FALSE}
 # This installs packages from BioConductor
-# source("https://bioconductor.org/biocLite.R")
-# biocLite("powerTCR")
+# if (!requireNamespace("BiocManager", quietly=TRUE))
+    # install.packages("BiocManager")
+# BiocManager::install("powerTCR")
 library(powerTCR)
 data("repertoires")
 ```
