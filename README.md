@@ -7,8 +7,9 @@ This is an R package for fitting the discrete gamma-GPD spliced threshold model 
 Install and load this package from BioConductor by typing in R:
 
 ```{r}
-source("https://bioconductor.org/biocLite.R")
-biocLite("powerTCR")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("powerTCR")
 ```
 
 or take it directly from from GitHub with:
