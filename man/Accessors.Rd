@@ -10,12 +10,13 @@ These are convenient accessors that will grab important output from a list of fi
 \usage{
 get_mle(fits)
 get_nllh(fits)
+get_diversity(fits)
 }
 \arguments{
   \item{fits}{A list of fits output from fdiscgammagpd.}
 }
 \value{
-A list of out either maximum likelihood estimates (get_mle) or negative log likelihoods (get nllh) corresponding to the list of fits.
+A list of out either maximum likelihood estimates (get_mle) or negative log likelihoods (get nllh) corresponding to the list of fits. For get_diversity, a data frame of diversity estimates (species richness, Shannon entropy, clonality, and proportion of highly stimulated clones) for the samples.
 }
 \author{\email{hbk5086@psu.edu}}
 \seealso{
@@ -39,7 +40,9 @@ names(fits) <- c("fit1", "fit2")
 
 mles <- get_mle(fits)
 nllhs <- get_nllh(fits)
+diversity_ests <- get_diversity(fits)
 
 mles
 nllhs
+diversity_ests
 }

@@ -6,8 +6,7 @@ Visualize hierarchical clustering of samples
 \description{
 This function is just a simple wrapper for the \link{hclust} function. It takes
 a symmetrix matrix displaying pairwise distances between samples and outputs
-a plot of the hierarchical clustering using specified linkage. Linkage
-method defaults to \code{complete}. Note that the distances must be given as
+a plot of the hierarchical clustering using specified linkage. Note that the distances must be given as
 a matrix object, not a distance object.
 }
 \usage{
@@ -71,5 +70,5 @@ distances <- distances + t(distances)
 
 # Perform clustering. Note that s1 and s2 were generated using similar
 # parameters, so we might expect them to be clustered together
-\dontrun{clusterPlot(distances, method = c("complete"))}
+\dontrun{clusterPlot(distances, method = c("ward.D"))}
 }

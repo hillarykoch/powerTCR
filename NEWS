@@ -1,7 +1,11 @@
-Version 0.1.1
-Getting compliant with BioConductor policies
+Changes in Version 0.1.2
++ Added diversity estimators
 
------------------
+Changes in Version 0.1.2
++ Added bootstrapping procedure and easier tools for comparative analysis
 
-INITIAL RELEASE
-Version 0.1.0
+Changes in Version 0.1.1
++ Compliance with all BioConductor policies
+
+Changes in Version 0.1.0
++ INITIAL RELEASE
