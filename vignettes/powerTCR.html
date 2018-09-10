@@ -11,7 +11,7 @@
 
 <meta name="author" content="Hillary Koch" />
 
-<meta name="date" content="2018-08-15" />
+<meta name="date" content="2018-09-10" />
 
 <title>powerTCR</title>
 
@@ -130,11 +130,11 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">powerTCR</h1>
 <p class="author-name">Hillary Koch</p>
-<h4 class="date"><em>15 August 2018</em></h4>
+<h4 class="date"><em>10 September 2018</em></h4>
 <h4 class="abstract">Abstract</h4>
 <p>This vignette walks through the functionality of the powerTCR package for analyzing the T cell receptor repertoire. The package’s main goals are to fit models to the clone size distribution of the TCR repertoire, and to perform model-based comparative analysis of samples, following the work of <strong>our paper (pending)</strong>. For user simplicity, powerTCR can handle data in the formats MiTCR, MiTCR with UMIs, MiGEC, VDJtools, ImmunoSEQ (both old and new), MiXCR, and IMSEQ. If not using one of these formats, powerTCR only requires that the user be able to turn a sample TCR repertoire into a vector of clone sizes.</p>
 <h4 class="package">Package</h4>
-<p>powerTCR 0.99.37</p>
+<p>powerTCR 1.1.3</p>
 
 </div>
 
@@ -177,8 +177,8 @@ $(document).ready(function () {
 <h1><span class="header-section-number">2</span> Fitting a model</h1>
 <p>In order to fit a model with powerTCR, you only need to be able to supply a <strong>vector of counts</strong> (that is, a vector of clone sizes). If your data are in a format supported by <code>parseFile</code> or <code>parseFolder</code>, you can simply read in your file using one of those functions, specify whether or not you want to use only in-frame sequences, and powerTCR will automatically give you a sorted vector of clone sizes for each sample. This functionality is a wrapper for parsing functions found in the <em><a href="https://CRAN.R-project.org/package=tcR">tcR</a></em> package.</p>
 <p>powerTCR contains a toy data set, called <code>repertoires</code>, with two TCR repertoire samples, which we will use throughout this vignette. (In practice, you may have any number of samples.) You can load powerTCR and this data set by typing:</p>
-<pre class="r"><code>library(powerTCR)
-data(&quot;repertoires&quot;)</code></pre>
+<pre class="r"><code># BiocManager::install(&quot;powerTCR&quot;)
+library(powerTCR)</code></pre>
 <p><code>repertoires</code> is a list with 2 elements in it, each corresponding to a sample repertoire. Have a look:</p>
 <pre class="r"><code>str(repertoires)</code></pre>
 <pre><code>## List of 2
