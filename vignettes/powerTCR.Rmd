@@ -25,7 +25,7 @@ The powerTCR package allows users to implement the model-based methods discussed
 
 # Fitting a model
 
-In order to fit a model with powerTCR, you only need to be able to supply a __vector of counts__ (that is, a vector of clone sizes). If your data are in a format supported by `parseFile` or `parseFolder`, you can simply read in your file using one of those functions, specify whether or not you want to use only in-frame sequences, and powerTCR will automatically give you a sorted vector of clone sizes for each sample. This functionality is a wrapper for parsing functions found in the `r CRANpkg("tcR")` package.
+In order to fit a model with powerTCR, you only need to be able to supply a __vector of counts__ (that is, a vector of clone sizes). If your data are in a format supported by `parseFile` or `parseFolder`, you can simply read in your file using one of those functions, specify whether or not you want to use only in-frame sequences, and powerTCR will automatically give you a sorted vector of clone sizes for each sample. This functionality is a wrapper for parsing functions found in the `tcR` package.
 
 powerTCR contains a toy data set, called `repertoires`, with two TCR repertoire samples, which we will use throughout this vignette. (In practice, you may have any number of samples.) You can load powerTCR and this data set by typing:
 
