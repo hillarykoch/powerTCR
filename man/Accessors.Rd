@@ -1,6 +1,7 @@
 \name{Accessors}
 \alias{get_mle}
 \alias{get_nllh}
+\alias{get_diversity}
 \title{
 Grab important output from a list of fits
 }
