@@ -3,7 +3,7 @@ title: "powerTCR"
 author: "Hillary Koch"
 package: powerTCR
 abstract: >
-    This vignette walks through the functionality of the powerTCR package for analyzing the T cell receptor repertoire. The package's main goals are to fit models to the clone size distribution of the TCR repertoire, and to perform model-based comparative analysis of samples, following the work of __our paper (pending)__. For user simplicity, powerTCR can handle data in the formats MiTCR, MiTCR with UMIs, MiGEC, VDJtools, ImmunoSEQ (both old and new), MiXCR, and IMSEQ. If not using one of these formats, powerTCR only requires that the user be able to turn a sample TCR repertoire into a vector of clone sizes.
+    This vignette walks through the functionality of the powerTCR package for analyzing the T cell receptor repertoire. The package's main goals are to fit models to the clone size distribution of the TCR repertoire, and to perform model-based comparative analysis of samples, following the work of Koch et al. (2018). For user simplicity, powerTCR can handle data in the formats MiTCR, MiTCR with UMIs, MiGEC, VDJtools, ImmunoSEQ (both old and new), MiXCR, and IMSEQ. If not using one of these formats, powerTCR only requires that the user be able to turn a sample TCR repertoire into a vector of clone sizes.
 output: BiocStyle::html_document
 vignette: > 
   %\VignetteIndexEntry{Vignette Title}
@@ -12,13 +12,13 @@ vignette: >
 ---
 
 # Introduction
-The powerTCR package allows users to implement the model-based methods discussed in __our paper (pending)__. Specifically, the clone size distribution of the T cell receptor (TCR) repertoire exhibits imperfect power law behavior; powerTCR supports a model that keeps this fact in mind. Additionally, powerTCR contains tools to fit another power law model for the TCR repertoire detailed in Desponds et al. (2016). Given a collection of sampled TCR repertoires, powerTCR equips the user with tools for comparative analysis of the samples, using one of two model-based approaches. This leads to hierarchical clustering of the samples to determine their relatedness based on the clone size distribution alone.
+The powerTCR package allows users to implement the model-based methods discussed in our Koch et al. (2018) paper in PLoS Computational Biology. Specifically, the clone size distribution of the T cell receptor (TCR) repertoire exhibits imperfect power law behavior; powerTCR supports a model that keeps this fact in mind. Additionally, powerTCR contains tools to fit another power law model for the TCR repertoire detailed in Desponds et al. (2016). Given a collection of sampled TCR repertoires, powerTCR equips the user with tools for comparative analysis of the samples, using one of two model-based approaches. This leads to hierarchical clustering of the samples to determine their relatedness based on the clone size distribution alone.
 
 ## Summary of features
 
 - Read in and parse TCR sequencing files stored in various formats into the necessary format for powerTCR
 - Fit two power law-based models to the clone size distribution of the TCR repertoire
-    1. The discrete gamma-GPD spliced threshold model of __our paper (pending)__
+    1. The discrete gamma-GPD spliced threshold model of Koch et al. (2018)
     2. The type-I Pareto model of Desponds et al. (2016)
 - Compare sample TCR repertoire samples based on model fit with hierarchical clustering
 - Simulate data according from the gamma-GPD spliced threshold distribution
@@ -120,7 +120,7 @@ You can also view the likelihoods for every other threshold you checked (in nllh
 
 ## The Type-I Pareto model
 
-For reproducibility purposes, powerTCR also provides a means to fit the model of Desponds et al. (2016). This model is investigated and discussed in __our paper (pending)__. The model follows a type-I Pareto distribution, with density:
+For reproducibility purposes, powerTCR also provides a means to fit the model of Desponds et al. (2016). This model is investigated and discussed in Koch et al. (2018). The model follows a type-I Pareto distribution, with density:
 
 \[
 f(x) = \frac{\alpha u^\alpha}{x^{\alpha+1}}.
@@ -208,7 +208,7 @@ Fun, but not too realistic for a clone size distribution. There are several ways
 
 # Doing comparative analysis
 
-Following the work in __our paper (pending)__, powerTCR provides the tools needed to perform hierarchical clustering of TCR repertoire samples according to their Jensen-Shannon distance. We can test this out on the 3 TCR repertoires we just simulated. First, we need to fit a model to them. For computational efficiency, let's just supply the true thresholds. Then, we can use `JS_dist` to compute the Jensen-Shannon divergence between each pair of theoretical distributions corresponding to each of the TCR samples.
+Following the work in Koch et al. (2018), powerTCR provides the tools needed to perform hierarchical clustering of TCR repertoire samples according to their Jensen-Shannon distance. We can test this out on the 3 TCR repertoires we just simulated. First, we need to fit a model to them. For computational efficiency, let's just supply the true thresholds. Then, we can use `JS_dist` to compute the Jensen-Shannon divergence between each pair of theoretical distributions corresponding to each of the TCR samples.
 
 `JS_dist` needs to be supplied two model fits from `fdiscgammagpd` as well as a grid. The grid is important: it is the range over which each distribution gets evaluated. If you are comparing a group of TCR repertoires, the minimum value of your grid should be the smallest clone size across all samples. The upper bound of the grid should be something very large, say 100,000 or more. If you don't select a value large enough, you will not be examining the tail of your fitted distributions sufficiently, and the tail is important! The grid should also contain every integer between its minimum and maximum. For computational efficiency, here the upper bound on our grid is only 10,000.
 
@@ -242,7 +242,7 @@ The clustering result is exactly what we might expect. Indeed, we simulated s1 a
 
 # Extracting diversity estimators
 
-In __our paper (pending)__, we introduced new measures of diversity, alongise comparisons to often-used estimators of sample diversity borrowed from ecology literature. Providing a list of model fits, powerTCR can easily compute for you sample richness, Shannon entropy, clonality, and our introduced measure -- the proportion of highly stimulated clones. This is done with the function `get_diversity`. Let's demonstrate this on our fits from simulated data:
+In Koch et al. (2018), we introduced new measures of diversity, alongise comparisons to often-used estimators of sample diversity borrowed from ecology literature. Providing a list of model fits, powerTCR can easily compute for you sample richness, Shannon entropy, clonality, and our introduced measure -- the proportion of highly stimulated clones. This is done with the function `get_diversity`. Let's demonstrate this on our fits from simulated data:
 
 ```{r, echo=2:3, message = FALSE, warning = FALSE}
 library(vegan)
