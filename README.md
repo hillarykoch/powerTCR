@@ -1,6 +1,6 @@
 # powerTCR: modeling the clone size distribution of the TCR repertoire
 
-This is an R package for fitting the discrete gamma-GPD spliced threshold model to a distribution of clone sizes. The package contains tools needed to perform all of the analyses found in __our paper (pending)__. 
+This is an R package for fitting the discrete gamma-GPD spliced threshold model to a distribution of clone sizes. The package contains tools needed to perform all of the analyses found in our paper, *powerTCR: a model-based approach to comparative analysis of the clone size distribution of the T cell receptor repertoire.*
 
 ## Installation
 
