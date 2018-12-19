@@ -26,7 +26,7 @@ See the [package vignette](/vignettes/powerTCR.Rmd) for a detailed walkthrough o
 
 ## Citation
 
-You may read our methods paper at [PLoS Computational Biology:](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006571)
+You may read our methods paper at [PLoS Computational Biology](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006571).
 
 If you found the powerTCR package useful, please cite our paper:
 
