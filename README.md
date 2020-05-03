@@ -26,11 +26,11 @@ See the [package vignette](/vignettes/powerTCR.Rmd) for a detailed walkthrough o
 
 ## Citation
 
+You may read our methods paper at [PLoS Computational Biology](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006571).
+
 If you found the powerTCR package useful, please cite our paper:
 
-Koch, H., Starenki, D., Cooper, S.J., Myers, R.M., Li, Q. (2018) powerTCR: a model-based approach to comparative analysis of the clone size distribution of the T cell receptor repertoire, PLoS Computational Biology.
-
-You can see our research article [here.](https://journals.plos.org/ploscompbiol/article/comments?id=10.1371/journal.pcbi.1006571)
+Koch H, Starenki D, Cooper SJ, Myers RM, Li Q (2018) powerTCR: A model-based approach to comparative analysis of the clone size distribution of the T cell receptor repertoire. PLOS Computational Biology 14(11): e1006571. https://doi.org/10.1371/journal.pcbi.1006571
 
 Citation for the powerTCR package is:
 
