@@ -2,55 +2,22 @@
 ## Borrow functionality from the tcR package to help folks read files
 ##--------------------------------------------------------------------
 
-parseFile <- function(file, format = c('mitcr', 'mitcrbc', 'migec', 'vdjtools',
-                                       'immunoseq', 'mixcr', 'imseq'),
-                      inframe = TRUE){
-    if(!(is.character(file))){
+parseFile <- function(path, inframe = TRUE){
+    if(!(is.character(path))){
         stop("file must be a character string.")
     }
     
-    if(!(format %in%  c('mitcr', 'mitcrbc', 'migec', 'vdjtools', 'immunoseq',
-                        'mixcr', 'imseq'))){
-        stop("invalid format specified.")
-    }
-    
     if(!(is.logical(inframe))){
         stop("inframe must be TRUE or FALSE.")
     }
     
-    data <- tcR::parse.file(.filename = file, .format = format)
+    data <- immunarch::repLoad(.path = path)$data[[1]]
+    counts <- data$Clones
 
     if(inframe){
-        data <- tcR::get.inframes(data)
+        data <- immunarch::coding(data)
     }
 
-    counts <- data$Read.count
-    counts
-}
-
-parseFolder <- function(folder, format = c('mitcr', 'mitcrbc', 'migec',
-                                           'vdjtools', 'immunoseq', 'mixcr',
-                                           'imseq'),
-                        inframe = TRUE){
-    if(!(is.character(folder))){
-        stop("folder must be a character string.")
-    }
-    
-    if(!(format %in%  c('mitcr', 'mitcrbc', 'migec', 'vdjtools', 'immunoseq',
-                        'mixcr', 'imseq'))){
-        stop("invalid format specified.")
-    }
-    
-    if(!(is.logical(inframe))){
-        stop("inframe must be TRUE or FALSE.")
-    }
-    
-    dataList <- tcR::parse.folder(.folderpath = folder, .format = format)
-
-    if(inframe){
-        dataList <- map(dataList, tcR::get.inframes)
-    }
-
-    counts <- map(dataList, "Read.count")
+    counts <- data$Clones
     counts
 }

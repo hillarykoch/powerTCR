@@ -18,12 +18,12 @@ Imports:
     doParallel,
     evmix,
     foreach,
+    immunarch,
     magrittr,
     methods,
     parallel,
     purrr,
     stats,
-    tcR,
     truncdist,
     vegan,
     VGAM
