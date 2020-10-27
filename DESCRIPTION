@@ -1,7 +1,7 @@
 Package: powerTCR
 Type: Package
 Title: Model-Based Comparative Analysis of the TCR Repertoire
-Version: 1.9.0
+Version: 1.10.0
 Date: 2018-01-23
 Author: Hillary Koch
 Maintainer: Hillary Koch <hillary.koch01@gmail.com>
