@@ -1,7 +1,5 @@
-Changes in Version 1.11.0
-+ Patched bugs after deprecation of `tcR`
-
 Changes in Version 1.0.1
++ Patched bugs after deprecation of `tcR`
 + We're published! Citations added.
 
 Changes in Version 1.0.0
