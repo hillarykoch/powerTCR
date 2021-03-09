@@ -6,27 +6,21 @@
 Load in and parse TCR data files for use by powerTCR
 }
 \description{
-These functions leverage the parse.file and \link[tcR]{parse.folder} functions from the tcR package. They are wrappers that output data in the format taken by powerTCR.
+This function leverages  \link[immunarch]{repLoad} functions from the immunarch package. They are wrappers that output data in the format taken by powerTCR.
 }
 \usage{
-parseFile(file, format = c('mitcr', 'mitcrbc', 'migec', 'vdjtools',
-                           'immunoseq', 'mixcr', 'imseq'),
-                            inframe = TRUE)
-parseFolder(folder, format = c('mitcr', 'mitcrbc', 'migec', 'vdjtools',
-                               'immunoseq', 'mixcr','imseq'),
-                                inframe = TRUE)
+parseFile(path, inframe = TRUE)
 }
 
 \arguments{
-  \item{file}{Path to input file with TCR repertoire sample data.}
-  \item{folder}{Path to input folder with one or more input files of TCR repertoire sample data.}
-  \item{format}{String specifying the input format. The formats MiTCR ("mitcr"), MiTCR with UMIs ("mitcrbc"), MiGEC ("migec"), VDJtools ("vdjtools"), ImmunoSEQ (formats 1, 2, and 3), MiXCR ("mixcr"), and IMSEQ ("imseq") are currently supported. For more information on formatting, see \link[tcR]{parse.folder}.}
+  \item{path}{Path to input file with TCR repertoire sample data.}
   \item{inframe}{Logical. Should counts only from in-frame sequences be returned? Defaults to TRUE.}
 }
 \value{
-\code{parseFolder} returns a list. Every element of the list is a vector of counts corresponding to a sample repertoire.
-
 \code{parseFile} returns a vector of counts corresponding to the sample repertoire.
+}
+\details{
+See the immunarch package on GitHub: https://github.com/immunomind/immunarch
 }
 
 \references{
