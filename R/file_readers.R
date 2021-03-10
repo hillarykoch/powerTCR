@@ -1,5 +1,5 @@
 ##--------------------------------------------------------------------
-## Borrow functionality from the tcR package to help folks read files
+## Borrow functionality from the immunarch package to read in files
 ##--------------------------------------------------------------------
 
 parseFile <- function(path, inframe = TRUE){
