@@ -14,7 +14,6 @@ Imports:
     doParallel,
     evmix,
     foreach,
-    immunarch,
     magrittr,
     methods,
     parallel,
@@ -24,6 +23,5 @@ Imports:
     vegan,
     VGAM
 Suggests: BiocStyle, knitr, rmarkdown, RUnit, BiocGenerics
-Remotes: git::https://github.com/immunomind/immunarch
 VignetteBuilder: knitr
 biocViews: Software, Clustering, BiomedicalInformatics
